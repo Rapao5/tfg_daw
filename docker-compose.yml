@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:16
+    container_name: postgres_tfg
+    restart: always
+    environment:
+      POSTGRES_USER: user_tfg
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: tfg
+    ports:
+      - "5432:5432"
