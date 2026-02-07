@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('ordenador_clase', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("ordenador_id")->constrained("ordenador")->onDelete("cascade");
+            $table->foreignId("clase_id")->constrained("clase")->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ordenador__clases');
+        Schema::dropIfExists('ordenador__clase');
     }
 };

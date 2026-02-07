@@ -6,23 +6,42 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clase_Alumno_Curso extends Model
 {
+    /**
+     * El nombre de la tabla asociada al modelo.
+     * 
+     * @var string
+     */
     protected $table = "clase_alumno_curso";
-    protected $fillable = ["ordenador_id", "alumno_id", "curso_id", "clase_id"];
+
+    /**
+     * Los atributos que son asignables en masa.
+     * 
+     * @var list<string>
+     */
+    protected $fillable = ["ordenador_clase_id", "alumno_curso_id"];
+
+    /**
+     * Los atributos que deben ocultarse para la serialización.
+     * 
+     * @var list<string>
+     */
     protected $hidden = ["updated_at","created_at"];
 
-    function ordenador(){
-        return $this -> belongsTo(Ordenador::class);
+    /**
+     * Define la relación de pertenencia con el modelo Ordenador_Clase.
+     * 
+     * @return belongsTo
+     */
+    function ordenador_clase(){
+        return $this -> belongsTo(Ordenador_Clase::class);
     }
 
-    function alumno(){
-        return $this -> belongsTo(Alumno::class);
-    }
-
-    function curso(){
-        return $this -> belongsTo(Curso::class);
-    }
-
-    function clase(){
-        return $this -> belongsTo(Clase::class);
+    /**
+     * Define la relación de pertenencia con el modelo Alumno_Curso.
+     * 
+     * @return belongsTo
+     */
+    function alumno_curso(){
+        return $this -> belongsTo(Alumno_Curso::class);
     }
 }

@@ -6,6 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ordenador extends Model
 {
+    /**
+     * El nombre de la tabla asociada al modelo.
+     * 
+     * @var string
+     */
+    protected $table = "ordenador";
+
+    /**
+     * Los atributos que son asignables en masa.
+     * 
+     * @var list<string>
+     */
     protected $fillable = ["nombre", "estado"];
+
+    /**
+     * Los atributos que deben ocultarse para la serialización.
+     * 
+     * @var list<string>
+     */
     protected $hidden = ["updated_at","created_at"];
 }

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('ordenador', function (Blueprint $table) {
             $table->id();
+            $table->string("nombre");
+            $table->boolean("estado")->default(true);
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ordenadors');
+        Schema::dropIfExists('ordenador');
     }
 };
