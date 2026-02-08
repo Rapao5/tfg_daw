@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\NotFoundAlumnoCursoException;
+use App\Exceptions\NotFoundClaseAlumnoCursoException;
 use App\Exceptions\NotFoundClaseException;
 use App\Exceptions\NotFoundCursoException;
 use App\Exceptions\NotFoundOrdenadorClaseException;
@@ -85,8 +86,15 @@ class ClaseAlumnoService
         return $query;
     }
 
-    public function editarClase(){
-        
+    public function editarClase($value){
+        foreach($value as $valor){
+            $this -> existAlumnoCurso($valor['alumno_curso_id']);
+            $this -> existClaseAlumnoCurso($valor['clase_alumno_curso_id']);
+
+            $editar = Clase_Alumno_Curso::find($valor['clase_alumno_curso_id']);
+            $editar -> alumno_curso_id = $valor['alumno_curso_id'];
+            $editar -> save();
+        }
     }
 
     public function crearClase($value){
@@ -122,5 +130,11 @@ class ClaseAlumnoService
         $alumnoCurso = Alumno_Curso::find($id);
 
         if(empty($alumnoCurso)) throw new NotFoundAlumnoCursoException("Alumno no encontrado", Response::HTTP_NOT_FOUND);
+    }
+
+    private function existClaseAlumnoCurso($id){
+        $claseAlumnoCurso = Clase_Alumno_Curso::find($id);
+
+        if(empty($claseAlumnoCurso)) throw new NotFoundClaseAlumnoCursoException("ClaseAlumnoCurso no encontrado", Response::HTTP_NOT_FOUND);
     }
 }
