@@ -21,10 +21,11 @@ class ClaseAlumnoController extends Controller
         $value = $validator->all();
 
         $claseAlumno = $this -> claseAlumnoService -> filtrar($value);
+        $ordenadores = $this -> claseAlumnoService -> mostrarOrdenador($value['clase_id']);
         $clases = Clase::get();
         $cursos = Curso::get();
 
-        return view('clase',compact('claseAlumno', "clases", "cursos"));
+        return view('clase',compact('claseAlumno', "clases", "cursos", 'ordenadores'));
     }
 
     public function vista(){
