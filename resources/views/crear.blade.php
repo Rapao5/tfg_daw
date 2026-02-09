@@ -14,15 +14,14 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Panel de Control</a>
-                <a class="navbar-brand" href="{{route('claseAlumno.vistaCrear')}}"><button>Crear/editar</button></a>
+                <a class="navbar-brand" href="#">Crear/editar</a>
                 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosHeader">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="filtrosHeader">
-                    <form action="{{ route('claseAlumno.filtrar') }}" method="POST" class="d-flex ms-auto gap-2">
+                    <form action="{{ route('claseAlumno.mostrar') }}" method="POST" class="d-flex ms-auto gap-2">
                         @csrf 
                         <div class="input-group input-group-sm">
                             <span class="input-group-text">Curso</span>
@@ -63,24 +62,22 @@
                             <div class="card-header bg-dark text-white">
                                 <strong>Ordenador Nº{{ $item->nombre_ordenador }}</strong>
                             </div>
-                                @php
-                                    $asignacion = $claseAlumno->firstWhere('id', $item->id);
-                                @endphp
-                                @if($asignacion)
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $asignacion->nombre_alumno }} {{ $asignacion->apellido_alumno }}</h5>
-                                    </div>
-                                    <div class="card-footer py-1">
-                                        <small class="text-danger">● Ocupado</small>
-                                    </div>
-                                @else
+                                
                                     <div class="card-body">
                                         <h5 class="card-title">&nbsp;</h5>
                                     </div>
+                                    <select name="alumno_id" class="form-select">
+                                        <option value="">Seleccionar...</option>
+                                        @foreach($alumnos as $alumno)
+                                            <option value="{{ $alumno->id }}" {{ old('alumno_id') == $alumno->id ? 'selected' : '' }}>
+                                                {{ $alumno->nombre_alumno }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     <div class="card-footer py-1">
                                         <small class="text-success">● Disponible</small>
                                     </div>
-                                @endif
+                                
                         </div>
                     </div>
                 @endforeach

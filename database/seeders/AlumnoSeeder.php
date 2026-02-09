@@ -36,5 +36,15 @@ class AlumnoSeeder extends Seeder
             'apellido' => 'Martínez',
             "nre" => "165321"
         ]);
+        Alumno::create([
+            'nombre' => 'Dani',
+            'apellido' => 'Zamora',
+            "nre" => "164234"
+        ]);
+        Alumno::create([
+            'nombre' => 'Estefania',
+            'apellido' => 'Martínez',
+            "nre" => "123431"
+        ]);
     }
 }
