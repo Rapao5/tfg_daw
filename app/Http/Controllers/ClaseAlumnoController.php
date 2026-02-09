@@ -46,7 +46,7 @@ class ClaseAlumnoController extends Controller
         return view('crear', compact('ordenadores', 'clases', 'cursos', "alumnos", "editar"));
     }
 
-    public function mostrar(FilterClaseAlumnoRequest $request){
+    public function mostrarCrearEditar(FilterClaseAlumnoRequest $request){
         $value = $request ->all();
 
         $ordenadores = $this -> claseAlumnoService -> mostrarOrdenador($value['clase_id']);
