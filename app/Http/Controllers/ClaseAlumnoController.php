@@ -39,28 +39,24 @@ class ClaseAlumnoController extends Controller
         $clases = Clase::get();
         $cursos = Curso::get();
 
-        $ordenadores = session('ordenador');
-        $alumnos = session('alumnos');
-        $editar = session('editar');
-
-        return view('crear', compact('ordenadores', 'clases', 'cursos', "alumnos", "editar"));
+        return view('crear', compact( 'clases', 'cursos' ));
     }
 
     public function mostrarCrearEditar(FilterClaseAlumnoRequest $request){
         $value = $request ->all();
 
+        $clases = Clase::get();
+        $cursos = Curso::get();
+
         $ordenadores = $this -> claseAlumnoService -> mostrarOrdenador($value['clase_id']);
         $alumnos = $this -> claseAlumnoService -> mostrarAlumno($value['curso_id']);
         $editar = $this -> claseAlumnoService -> mostrarEditar($value);
 
-        return redirect() 
-        -> route('claseAlumno.vistaCrear') 
-        -> withInput() 
-        -> with([
-            "ordenadores" => $ordenadores, 
-            "alumnos" => $alumnos,
-            "editar" => $editar
-        ]);
+        if($editar == null){
+            return view('crear', compact('ordenadores', 'alumnos', 'clases', 'cursos'));
+        }
+
+        return view('crear', compact('ordenadores', 'alumnos', 'editar', 'clases', 'cursos'));
     }
 
     public function crear(CrearClaseRequest $request){

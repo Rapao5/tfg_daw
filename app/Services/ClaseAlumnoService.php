@@ -71,10 +71,6 @@ class ClaseAlumnoService
     }
 
     public function mostrarEditar($value){
-        if($this->comprobarEditar($value)); {
-            return null;
-        }
-
         $claseAlumno = new Clase_Alumno_Curso();
         $query = $claseAlumno ->from("clase_alumno_curso as cac")
         ->leftJoin('alumno_curso as ac', 'cac.alumno_curso_id', '=', 'ac.id') 
@@ -87,6 +83,9 @@ class ClaseAlumnoService
         ->orderBy("o.id","asc")
         ->get();
 
+        if(empty($query)){
+            return null;
+        }
         return $query;
     }
 
@@ -110,15 +109,6 @@ class ClaseAlumnoService
             $clase -> fill($valor);
             $clase -> save();
         }
-    }
-
-    private function comprobarEditar($value){
-        $editar = new Clase_Alumno_Curso();
-        $query = $editar -> from ("clase_alumno_curso as cac")
-        ->leftJoin("ordenador_clase as oc", "cac.ordenador_clase_id", "=","oc.id")
-        ->leftJoin("alumno_curso as ac", "cac.alumno_curso_id","=", "ac.id")
-        ->where("ac.curso_id", $value['curso_id'])
-        ->where("oc.clase_id", $value['clase_id']);
     }
 
     private function existClase($id){
