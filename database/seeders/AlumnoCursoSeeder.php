@@ -31,5 +31,13 @@ class AlumnoCursoSeeder extends Seeder
             'alumno_id' => 4,
             'curso_id' => 2,
         ]);
+        Alumno_Curso::create([
+            'alumno_id' => 5,
+            'curso_id' => 3,
+        ]);
+        Alumno_Curso::create([
+            'alumno_id' => 6,
+            'curso_id' => 3,
+        ]);
     }
 }
