@@ -70,7 +70,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $asignacion->nombre_alumno }} {{ $asignacion->apellido_alumno }}</h5>
                                     </div>
-                                    <form action="{{ route('claseAlumno.miniBorrar', $asignacion->id) }}" method="POST" class="mt-2">
+                                    <form action="{{ route('claseAlumno.miniBorrar', ['clase_alumno_curso_id' => $asignacion->id, 'curso_id'  => $value['curso_id'], 'clase_id'  => $value['clase_id']]) }}" method="POST" class="mt-2">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-outline-warning btn-sm">
