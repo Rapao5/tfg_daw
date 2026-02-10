@@ -18,7 +18,9 @@ class MiniDeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "clase_alumno_curso_id" => "required|integer|min:1"
+            "clase_alumno_curso_id" => "required|integer|min:1",
+            "clase_id" => "required|integer|min:1",
+            "curso_id" => "required|integer|min:1"
         ];
     }
 
