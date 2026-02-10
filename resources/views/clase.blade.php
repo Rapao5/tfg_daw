@@ -70,6 +70,13 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $asignacion->nombre_alumno }} {{ $asignacion->apellido_alumno }}</h5>
                                     </div>
+                                    <form action="{{ route('claseAlumno.miniBorrar', $asignacion->id) }}" method="POST" class="mt-2">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-outline-warning btn-sm">
+                                            <i class="bi bi-person-x"></i> Liberar PC
+                                        </button>
+                                    </form>
                                     <div class="card-footer py-1">
                                         <small class="text-danger">● Ocupado</small>
                                     </div>
