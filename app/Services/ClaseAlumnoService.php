@@ -35,7 +35,7 @@ class ClaseAlumnoService
         ->leftJoin('ordenador as o',"oc.ordenador_id","=","o.id")
         ->where('ac.curso_id',"=", $value["curso_id"]) 
         ->where('oc.clase_id',"=", $value["clase_id"]) 
-        ->select('a.nombre as nombre_alumno', "a.apellido as apellido_alumno", "o.nombre as nombre_ordenador", "o.id")
+        ->select('a.nombre as nombre_alumno', "a.apellido as apellido_alumno", "o.nombre as nombre_ordenador", "o.id", "cac.id as cac_id")
         ->orderBy("o.id","asc") 
         ->get();
 
