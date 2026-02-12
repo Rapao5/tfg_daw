@@ -82,18 +82,18 @@
                                     </div>
                                 @else
                                     <form action="{{ route('claseAlumno.miniCrear', ['ordenador_clase_id' => $item->id, 'curso_id' => $value['curso_id'], 'clase_id' => $value['clase_id']]) }}" method="POST" class="mt-2">
-                                    @csrf    
-                                    <select name="alumno_clase_id" class="form-select">
-                                        @foreach($alumnos as $alumno)
-                                        <option value="{{ $alumno->id }}" {{ isset($alumno)? $alumno['alumno_id'] == $alumno->id ? 'selected' : '' : "" }}>
-                                            {{ $alumno->alumno->nombre }} {{ $alumno->alumno->apellido }}
-                                        </option>
-                                    @endforeach
-                                    </select>
-                                    </br>
-                                    <button type="submit" class="btn btn-outline-success btn-sm">
-                                            <i class="bi bi-person"></i> Asignar PC
-                                    </button>
+                                        @csrf    
+                                        <select name="alumno_curso_id" class="form-select">
+                                            @foreach($alumnos as $alumno)
+                                            <option value="{{ $alumno->id }}" {{ isset($alumno)? $alumno['alumno_id'] == $alumno->id ? 'selected' : '' : "" }}>
+                                                {{ $alumno->alumno->nombre }} {{ $alumno->alumno->apellido }}
+                                            </option>
+                                        @endforeach
+                                        </select>
+                                        </br>
+                                        <button type="submit" class="btn btn-outline-success btn-sm">
+                                                <i class="bi bi-person"></i> Asignar PC
+                                        </button>
                                     </form>
                                     </br>
                                     <div class="card-footer py-1">

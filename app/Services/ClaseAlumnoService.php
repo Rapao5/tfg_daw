@@ -130,8 +130,8 @@ class ClaseAlumnoService
 
     public function miniCrear($value){
         $this -> existAlumnoCurso($value['alumno_curso_id']);
-        $this -> existOrdenadorClase($value("ordenador_clase_id"));
-        $this -> existAsignacion($value("ordenador_clase_id"),$value['alumno_curso_id']);
+        $this -> existOrdenadorClase($value["ordenador_clase_id"]);
+        $this -> existAsignacion($value["ordenador_clase_id"],$value['alumno_curso_id']);
 
         $asignacion = new Clase_Alumno_Curso();
         $asignacion -> fill($value);
