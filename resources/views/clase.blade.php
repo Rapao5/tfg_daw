@@ -81,6 +81,15 @@
                                         <small class="text-danger">● Ocupado</small>
                                     </div>
                                 @else
+                                    @if($alumnos->isEmpty())
+                                        <div class="card-body">
+                                        <h5 class="card-title"></h5>
+                                        </div>
+                                        <p class="text-muted small mt-2">No hay alumnos disponibles</p>
+                                        <div class="card-body">
+                                        <h5 class="card-title"></h5>
+                                        </div>
+                                    @else
                                     <form action="{{ route('claseAlumno.miniCrear', ['ordenador_clase_id' => $item->id, 'curso_id' => $value['curso_id'], 'clase_id' => $value['clase_id']]) }}" method="POST" class="mt-2">
                                         @csrf    
                                         <select name="alumno_curso_id" class="form-select">
@@ -96,9 +105,11 @@
                                         </button>
                                     </form>
                                     </br>
+                                    @endif
                                     <div class="card-footer py-1">
                                         <small class="text-success">● Disponible</small>
                                     </div>
+                                    
                                 @endif
                         </div>
                     </div>
