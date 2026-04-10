@@ -12,7 +12,7 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ route('claseAlumno.vista') }}">Panel de Control</a>
                 
@@ -47,19 +47,19 @@
                             </select>
                         </div>
 
-                        <button class="btn btn-primary btn-sm" type="submit">Filtrar</button>
+                        <button class="btn btn-light btn-sm" type="submit">Filtrar</button>
                     </form>
                 </div>
             </div>
         </nav>
-
+</header>
     @if(isset($ordenadores))
         <div class="container mt-4">
             <div class="row">
                 @foreach ($ordenadores as $item)
                     <div class="col-md-3 mb-3">
                         <div class="card text-center border-dark">
-                            <div class="card-header bg-dark text-white">
+                            <div class="card-header text-white" style="background-color: #0b63a9;">
                                 <strong>Ordenador Nº{{ $item->nombre_ordenador }}</strong>
                             </div>
                                 @php
@@ -72,10 +72,14 @@
                                     <form action="{{ route('claseAlumno.miniBorrar', ['clase_alumno_curso_id' => $asignacion->cac_id, 'curso_id'  => $value['curso_id'], 'clase_id'  => $value['clase_id']]) }}" method="POST" class="mt-2">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-outline-warning btn-sm">
+                                        <button type="submit" class="btn btn-outline-primary btn-sm">
                                             <i class="bi bi-person-x"></i> Liberar PC
                                         </button>
                                     </form>
+                                    <br>
+                                    <div class="text-center">
+                                        <a href="" class="btn btn-outline-warning text-decoration-none btn-sm" style="width: 130px;">Reportar incidencia <i class="bi bi-display"></i></a>
+                                    </div>
                                     </br>
                                     <div class="card-footer py-1">
                                         <small class="text-danger">● Ocupado</small>
@@ -88,6 +92,10 @@
                                         <p class="text-muted small mt-2">No hay alumnos disponibles</p>
                                         <div class="card-body">
                                         <h5 class="card-title"></h5>
+                                        <div class="text-center">
+                                            <a href="" class="btn btn-outline-warning text-decoration-none btn-sm" style="width: 130px;">Reportar incidencia <i class="bi bi-display"></i></a>
+                                        </div>
+                                        <br>
                                         </div>
                                     @else
                                     <form action="{{ route('claseAlumno.miniCrear', ['ordenador_clase_id' => $item->id, 'curso_id' => $value['curso_id'], 'clase_id' => $value['clase_id']]) }}" method="POST" class="mt-2">
@@ -104,6 +112,10 @@
                                                 <i class="bi bi-person"></i> Asignar PC
                                         </button>
                                     </form>
+                                    </br>
+                                        <div class="text-center">
+                                            <a href="" class="btn btn-outline-warning text-decoration-none btn-sm" style="width: 130px;">Reportar incidencia <i class="bi bi-display"></i></a>
+                                        </div>
                                     </br>
                                     @endif
                                     <div class="card-footer py-1">
