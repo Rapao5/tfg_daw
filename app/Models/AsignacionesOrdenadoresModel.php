@@ -5,6 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Modelo AsignacionesOrdenadoresModel
+ * 
+ * Gestiona la asignación específica de un ordenador a un alumno.
+ * 
+ * @property int $id
+ * @property int $alumno_id ID del alumno asignado.
+ * @property int $ordenador_id ID del ordenador asignado.
+ * @property bool $is_enabled Estado de la asignación (activo/inactivo).
+ */
 class AsignacionesOrdenadoresModel extends Model
 {
     /**

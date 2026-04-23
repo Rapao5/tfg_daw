@@ -6,6 +6,12 @@ use App\Models\CursosAlumnosModel as CursosAlumnos;
 
 class CursosAlumnosRepository
 {
+    /**
+     * Obtiene los alumnos pertenecientes a un curso específico.
+     *
+     * @param int|string $value ID del curso.
+     * @return array|null Lista de alumnos o null si el curso está vacío.
+     */
     public static function getAlumnos($value){
         $query = CursosAlumnos::select(
             "a.nombre as nombre",

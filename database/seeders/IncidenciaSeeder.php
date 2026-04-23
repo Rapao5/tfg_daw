@@ -27,7 +27,7 @@ class IncidenciaSeeder extends Seeder
             'descripcion' => 'El teclado del ordenador no responde al escribir.',
             'fecha' => '2024-05-02',
             'ordenador_id' => 2,
-            'status' => IncidenciaStatus::ARREGLADO,
+            'status' => IncidenciaStatus::RESUELTO,
         ]);
 
         IncidenciasModel::create([

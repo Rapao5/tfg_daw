@@ -5,21 +5,45 @@ namespace App\Services;
 use App\Repositories\CursosAlumnosRepository;
 use App\Repositories\AsignacionesOrdenadoresRepository;
 use App\Repositories\AulasOrdenadoresRepository;
+use App\Repositories\HistoricoRepository;
 
+/**
+ * Clase AsignacionesService
+ * 
+ * Capa de servicios que orquesta la lógica de negocio entre los controladores y los repositorios
+ */
 class AsignacionesService
 {
+    /**
+     * Filtra y obtiene las asignaciones de ordenadores activas.
+     *
+     * @param array $value Contiene 'curso_id' y 'aula_id'.
+     * @return \Illuminate\Support\Collection|null
+     */
     public function filtrar($value){
         $asignaciones = AsignacionesOrdenadoresRepository::getAsignaciones($value['curso_id'], $value['aula_id']);
         
         return $asignaciones;
     }
 
+    /**
+     * Obtiene el listado de ordenadores asociados a un aula.
+     *
+     * @param int $id ID del aula.
+     * @return array|null
+     */
     public function mostrarOrdenador($id){
         $ordenadores = AulasOrdenadoresRepository::getOrdenadores($id);
 
         return $ordenadores;
     }
 
+    /**
+     * Obtiene el listado de alumnos asociados a un curso.
+     *
+     * @param int $id ID del curso.
+     * @return array|null
+     */
     public function mostrarAlumno($id){
         $alumno = CursosAlumnosRepository::getAlumnos($id);
         return $alumno;
@@ -57,19 +81,44 @@ class AsignacionesService
         }
     }
 */
-
+    
+    /**
+     * Crea registros en el historial de asignaciones.
+     *
+     * @param array $value Lista de datos de asignación para persistir.
+     * @return void
+     */
     public function historico($value){
-        
+        HistoricoRepository::createHistorico($value);
     }
 
+    /**
+     * Ejecuta el borrado lógico de una asignación.
+     *
+     * @param int $asignacion_id ID de la asignación a desactivar.
+     * @return void
+     */
     public function miniBorrarAsignacionOrdenador($asignacion_id){
         AsignacionesOrdenadoresRepository::miniBorrar($asignacion_id);
     }
 
+    /**
+     * Crea o reactiva una asignación de ordenador para un alumno.
+     *
+     * @param array $value Contiene 'alumno_id' y 'ordenador_id'.
+     * @return void
+     */
     public function miniCrearAsignacionOrdenador($value){
         AsignacionesOrdenadoresRepository::miniCrear($value);
     }
 
+    /**
+     * Obtiene los alumnos de un curso que no tienen asignado un equipo en un aula específica.
+     *
+     * @param int $curso_id
+     * @param int $aula_id
+     * @return array
+     */
     public function alumnosSinOrdenador($curso_id, $aula_id){
         return AsignacionesOrdenadoresRepository::getAlumnosSinOrdenador($curso_id, $aula_id);
     }

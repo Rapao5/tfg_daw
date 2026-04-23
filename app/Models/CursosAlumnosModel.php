@@ -5,6 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Modelo CursosAlumnosModel
+ * 
+ * Gestiona la relación entre alumnos y los cursos en los que están inscritos.
+ * 
+ * @property int $alumno_id ID del alumno.
+ * @property int $curso_id ID del curso.
+ */
 class CursosAlumnosModel extends Model
 {
     /**

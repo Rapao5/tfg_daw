@@ -5,6 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Modelo AulasOrdenadoresModel
+ * 
+ * Representa la relación pivot entre Aulas y Ordenadores.
+ * 
+ * @property int $ordenador_id ID del ordenador.
+ * @property int $aula_id ID del aula.
+ */
 class AulasOrdenadoresModel extends Model
 {
     /**

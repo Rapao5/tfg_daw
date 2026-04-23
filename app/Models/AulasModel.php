@@ -4,6 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Modelo AulasModel
+ * 
+ * Representa los espacios físicos (clases) donde se ubican los ordenadores.
+ * 
+ * @property int $id
+ * @property string $nombre Nombre descriptivo del aula (ej: Aula 22).
+ */
 class AulasModel extends Model
 {
     /**

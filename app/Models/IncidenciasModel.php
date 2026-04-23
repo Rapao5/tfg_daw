@@ -6,6 +6,19 @@ use App\Enums\IncidenciaStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Modelo IncidenciasModel
+ * 
+ * Representa una incidencia o avería registrada en un ordenador.
+ * 
+ * @property int $id
+ * @property string $fecha Fecha y hora de la incidencia.
+ * @property int $ordenador_id ID del ordenador afectado.
+ * @property string $titulo Título breve del problema.
+ * @property string $descripcion Detalle extendido de la incidencia.
+ * @property bool $resuelto Indica si la incidencia ha sido cerrada.
+ * @property \App\Enums\IncidenciaStatus $status Estado actual (AVERIADO, MANTENIMIENTO, etc).
+ */
 class IncidenciasModel extends Model
 {
     /**

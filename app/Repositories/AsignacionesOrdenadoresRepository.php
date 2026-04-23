@@ -7,6 +7,13 @@ use App\Models\AsignacionesOrdenadoresModel;
 
 class AsignacionesOrdenadoresRepository
 {
+    /**
+     * Obtiene las asignaciones de ordenadores activas para un curso y aula específicos.
+     *
+     * @param int|string $curso_id ID del curso.
+     * @param int|string $aula_id ID del aula.
+     * @return \Illuminate\Support\Collection|null Colección de asignaciones indexada por el ID del ordenador o null si no hay resultados.
+     */
     public static function getAsignaciones($curso_id, $aula_id){
         $asignacion = AsignacionesOrdenadoresModel::from('asignaciones_ordenadores as aor')
         ->select(
@@ -37,6 +44,12 @@ class AsignacionesOrdenadoresRepository
         return $asignacion;
     }
 
+    /**
+     * Deshabilita una asignación específica (borrado lógico).
+     *
+     * @param int|string $id ID de la asignación a deshabilitar.
+     * @return void
+     */
     public static function miniBorrar($id){
         $asignacion = AsignacionesOrdenadoresModel::find($id);
         if ($asignacion) {
@@ -45,6 +58,12 @@ class AsignacionesOrdenadoresRepository
         }
     }
 
+    /**
+     * Crea una nueva asignación o habilita una existente para un alumno y ordenador.
+     *
+     * @param array $value Array asociativo que contiene 'alumno_id' y 'ordenador_id'.
+     * @return void
+     */
     public static function miniCrear($value){
         $asignacion = AsignacionesOrdenadoresModel::where('alumno_id', $value['alumno_id'])
         ->where('ordenador_id', $value['ordenador_id'])
@@ -63,6 +82,13 @@ class AsignacionesOrdenadoresRepository
         $asignacion->save();
     }
 
+    /**
+     * Obtiene la lista de alumnos de un curso que no tienen un ordenador asignado actualmente en un aula.
+     *
+     * @param int|string $curso_id ID del curso.
+     * @param int|string $aula_id ID del aula.
+     * @return array Lista de alumnos (ID, nombre, apellidos) sin asignación activa.
+     */
     public static function getAlumnosSinOrdenador($curso_id, $aula_id){
         $asignacion = AsignacionesOrdenadoresModel::from('asignaciones_ordenadores as aor')
         ->select(

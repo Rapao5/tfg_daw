@@ -5,6 +5,17 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * Modelo ProfesoresModel
+ * 
+ * Modelo para la autenticación y gestión de profesores.
+ * 
+ * @property int $id
+ * @property string $nombre
+ * @property string $apellidos
+ * @property string $email
+ * @property string $password
+ */
 class ProfesoresModel extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */

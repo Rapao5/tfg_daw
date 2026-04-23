@@ -4,6 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Modelo AlumnosModel
+ * 
+ * Representa a los estudiantes registrados en el sistema.
+ * 
+ * @property int $id
+ * @property string $nombre
+ * @property string $apellido
+ * @property string $nre Número Regional de Estudiante.
+ */
 class AlumnosModel extends Model
 {
     /**

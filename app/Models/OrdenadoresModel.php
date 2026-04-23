@@ -4,6 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Modelo OrdenadoresModel
+ * 
+ * Representa el hardware físico disponible en el centro.
+ * 
+ * @property int $id
+ * @property string $nombre Etiqueta o número del ordenador.
+ * @property string $estado Estado físico o lógico del equipo.
+ */
 class OrdenadoresModel extends Model
 {
     /**
@@ -18,7 +27,7 @@ class OrdenadoresModel extends Model
      * 
      * @var list<string>
      */
-    protected $fillable = ["nombre", "estado"];
+    protected $fillable = ["nombre", "disponible"];
 
     /**
      * Los atributos que deben ocultarse para la serialización.
