@@ -15,19 +15,16 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('asignaciones.vista') }}">Panel de Control</a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosHeader">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
             <div class="collapse navbar-collapse" id="filtrosHeader">
                 <form action="{{ route('asignaciones.filtrar') }}" method="GET" class="d-flex ms-auto gap-2">
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Curso</span>
-                        <select name="curso_id" class="form-select">
+                        <select name="curso_id" class="form-select" required>
                             <option value="">Seleccionar...</option>
                             @foreach($cursos as $curso)
                                 <option value="{{ $curso['id'] }}" {{ (isset($value) && $value['curso_id'] == $curso['id']) ? 'selected' : '' }}>
-                                    {{ $curso['letra'] }}
+                                   {{ $curso['nivel'] }}º {{ $curso['letra'] }}
                                 </option>
                             @endforeach
                         </select>
@@ -35,7 +32,7 @@
 
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Aula</span>
-                        <select name="aula_id" class="form-select">
+                        <select name="aula_id" class="form-select" required>
                             <option value="">Seleccionar...</option>
                             @foreach($aulas as $aula)
                                 <option value="{{ $aula['id'] }}" {{ (isset($value) && $value['aula_id'] == $aula['id']) ? 'selected' : '' }}>
@@ -54,6 +51,11 @@
 
 <main class="container mt-4">
     @if(isset($ordenadores))
+    <div class="d-flex justify-content-center p-2">
+        <button type="submit" class="btn btn-info btn-lg mb-3 p-3">
+            <i class="bi bi-clock-history"></i> Historial
+        </button>
+    </div>
         <div class="row">
             @foreach ($ordenadores as $item)
                 <div class="col-md-3 mb-4">
@@ -68,8 +70,8 @@
 
                         <div class="card-body d-flex flex-column justify-content-center">
                             @if($asignacion)
-                                <h5 class="card-title text-primary">{{ $asignacion['nombre_alumno'] }}</h5>
-                                <p class="card-text text-muted">{{ $asignacion['apellido_alumno'] }}</p>
+                                <h5 class="card-title text-primary">{{ $asignacion['nombre_alumno'] }} {{ $asignacion['apellido_alumno'] }}</h5>
+                                <p class="card-text text-muted"></p>
 
                                 <form action="{{ route('asignaciones.miniBorrar') }}" method="POST">
                                     @csrf
@@ -78,7 +80,7 @@
                                     <input type="hidden" name="aula_id" value="{{ $value['aula_id'] }}">
 
                                     
-                                    <button type="submit" class="btn btn-outline-danger btn-sm w-100 mb-2">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm w-100 mb-2">
                                         <i class="bi bi-person-x"></i> Liberar PC
                                     </button>
                                 </form>
@@ -107,6 +109,9 @@
                                     </form>
                                 @endif
                             @endif
+                            <button type="submit" class="btn btn-outline-danger btn-sm w-100 mb-2">
+                                <i class="bi bi-pc-display"></i> Incidencia
+                            </button>
                         </div>
 
                         <div class="card-footer py-1 bg-light">
