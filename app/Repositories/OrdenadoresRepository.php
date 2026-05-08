@@ -11,4 +11,9 @@ class OrdenadoresRepository
         ->get()
         ->toArray();
     }
+
+    public static function getOrdenadores(){
+        return Ordenadores::all()
+        ->toArray();
+    }
 }

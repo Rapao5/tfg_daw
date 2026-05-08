@@ -12,7 +12,7 @@ class AsignacionesOrdenadoresRepository
      *
      * @param int|string $curso_id ID del curso.
      * @param int|string $aula_id ID del aula.
-     * @return \Illuminate\Support\Collection|null Colección de asignaciones indexada por el ID del ordenador o null si no hay resultados.
+     * @return array|null Colección de asignaciones indexada por el ID del ordenador o null si no hay resultados.
      */
     public static function getAsignaciones($curso_id, $aula_id){
         $asignacion = AsignacionesOrdenadoresModel::from('asignaciones_ordenadores as aor')
