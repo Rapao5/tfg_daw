@@ -73,8 +73,10 @@
 
                                 <form action="{{ route('asignaciones.miniBorrar') }}" method="POST">
                                     @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="asignacion_id" value="{{ $asignacion['cac_id'] }}">
+                                    <input type="hidden" name="asignacion_id" value="{{ $asignacion['asignacion_id'] }}">
+                                    <input type="hidden" name="curso_id" value="{{ $value['curso_id'] }}">
+                                    <input type="hidden" name="aula_id" value="{{ $value['aula_id'] }}">
+
                                     
                                     <button type="submit" class="btn btn-outline-danger btn-sm w-100 mb-2">
                                         <i class="bi bi-person-x"></i> Liberar PC
@@ -86,9 +88,11 @@
                                 @else
                                     <form action="{{ route('asignaciones.miniCrear') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="ordenador_clase_id" value="{{ $item['id'] }}">
+                                        <input type="hidden" name="ordenador_id" value="{{ $item['id'] }}">
+                                        <input type="hidden" name="curso_id" value="{{ $value['curso_id'] }}">
+                                        <input type="hidden" name="aula_id" value="{{ $value['aula_id'] }}">
                                         
-                                        <select name="alumno_curso_id" class="form-select form-select-sm mb-2" required>
+                                        <select name="alumno_id" class="form-select form-select-sm mb-2" required>
                                             <option value="">Asignar alumno...</option>
                                             @foreach($alumnos as $alumno)
                                                 <option value="{{ $alumno['id'] }}">
