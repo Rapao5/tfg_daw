@@ -24,3 +24,4 @@ Route::post('/asignaciones/historial', [AsignacionesOrdenadorController::class, 
 //Rutas para incidencias
 Route::get('/incidencias', [IncidenciasController::class, 'home'])->name('incidencias.home');
 Route::post('/incidencias', [IncidenciasController::class, 'create'])->name('incidencias.create');
+
