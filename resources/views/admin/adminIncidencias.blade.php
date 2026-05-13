@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clases y Cursos</title>
+    <link rel="stylesheet" href="{{ asset('app.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ route('') }}">Panel de Control</a>
+        </div>
+    </nav>
+</header>
+<main class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0 text-secondary"><i class="bi bi-tools"></i> Gestión de Incidencias</h2>
+        <a href="{{ route('asignaciones.vista') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Volver al Panel
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-danger">
+        <div class="card-header bg-danger text-white d-flex align-items-center">
+            <h5 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i> Ordenadores con Incidencias Activas</h5>
+        </div>
+        <div class="card-body p-0">
+            @php
+                $ordenadoresAveriados = collect($ordenadores ?? [])->filter(function($item) {
+                    return isset($item['tiene_incidencia']) && $item['tiene_incidencia'];
+                });
+                
+                $hayIncidencias = (isset($incidencias) && $incidencias->isNotEmpty()) || $ordenadoresAveriados->isNotEmpty();
+            @endphp
+
+            @if($hayIncidencias)
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 15%" class="ps-4">PC</th>
+                                <th style="width: 55%">Detalles</th>
+                                <th style="width: 30%" class="text-end pe-4">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(isset($incidencias) && $incidencias->isNotEmpty())
+                                @foreach ($incidencias as $incidencia)
+                                    <tr class="table-danger">
+                                        <td class="ps-4">
+                                            <strong>Nº {{ $incidencia->ordenador_id ?? 'Desconocido' }}</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-danger mb-1"><i class="bi bi-tools"></i> Averiado</span>
+                                            <div class="small text-muted">{{ $incidencia->descripcion ?? 'Requiere reparación' }}</div>
+                                        </td>
+                                        <td class="text-end pe-4">
+                                            <form action="{{ route('incidencias.quitar') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    <i class="bi bi-check-lg"></i> Marcar como Reparado
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                @foreach ($ordenadoresAveriados as $item)
+                                    <tr class="table-danger">
+                                        <td class="ps-4">
+                                            <strong>Nº {{ $item['nombre'] ?? $item['nombre_ordenador'] }}</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-danger"><i class="bi bi-tools"></i> Averiado</span>
+                                        </td>
+                                        <td class="text-end pe-4">
+                                            <form action="{{ route('incidencias.quitar') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <input type="hidden" name="ordenador_id" value="{{ $item['id'] }}">
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    <i class="bi bi-check-lg"></i> Marcar como Reparado
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <div class="p-5 text-center text-muted">
+                    <i class="bi bi-check-circle text-success mb-3" style="font-size: 4rem;"></i>
+                    <h4 class="text-success">¡Todo en orden!</h4>
+                    <p class="fs-6">No hay ordenadores con incidencias registrados en este momento.</p>
+                </div>
+            @endif
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
