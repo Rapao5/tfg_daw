@@ -26,5 +26,8 @@ Route::post('/asignaciones/historial', [AsignacionesOrdenadorController::class, 
 Route::get('/incidencias', [IncidenciasController::class, 'home'])->name('incidencias.home');
 Route::post('/incidencias', [IncidenciasController::class, 'create'])->name('incidencias.create');
 
+// Rutas para incidencias de admin
+Route::get('/admin/incidencias', [IncidenciasController::class, 'homeAdmin'])->name('admmin.incidencias');
+
 // Rutas para ver historial
 Route::get('/admin/historial', [HistorialController::class, 'home'])->name('admin.historial');
