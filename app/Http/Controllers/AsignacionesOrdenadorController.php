@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateHistoricoRequest;
 use App\Http\Requests\FilterAsignacionesOrdenadoresRequest;
 use App\Http\Requests\MiniCrearRequest;
 use App\Http\Requests\MiniDeleteRequest;
@@ -90,10 +91,10 @@ class AsignacionesOrdenadorController extends Controller
     /**
      * Registra el estado actual de las asignaciones en el histórico.
      *
-     * @param HistoricoRequest $request Datos necesarios para generar el histórico.
+     * @param CreateHistoricoRequest $request Datos necesarios para generar el histórico.
      * @return \Illuminate\Http\RedirectResponse Redirección a la página anterior.
      */
-    public function historico(HistoricoRequest $request){
+    public function historico(CreateHistoricoRequest $request){
         $data = $request->validated();
         $this -> asignacionesService ->historico($data);
         return redirect()->back();
