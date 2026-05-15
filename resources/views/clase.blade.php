@@ -61,7 +61,7 @@
                 <div class="col-md-3 mb-4">
                     <div class="card text-center border-dark h-100 shadow-sm">
                         <div class="card-header text-white" style="background-color: #0b63a9;">
-                            <strong>Ordenador Nº {{ $item['nombre'] ?? $item['nombre_ordenador'] }}</strong>
+                            <strong>Ordenador Nº {{ $item['nombre'] }}</strong>
                         </div>
 
                         @php
@@ -109,13 +109,15 @@
                                     </form>
                                 @endif
                             @endif
-                            <button type="submit" class="btn btn-outline-danger btn-sm w-100 mb-2">
+                            <a href="{{ route('incidencias.home', ['ordenador_id' => $item['id'], 'curso_id' => $value['curso_id'], 'aula_id' => $value['aula_id']]) }}" class="btn btn-outline-danger btn-sm w-100 mb-2">
                                 <i class="bi bi-pc-display"></i> Incidencia
-                            </button>
+                            </a>
                         </div>
 
                         <div class="card-footer py-1 bg-light">
-                            @if($asignacion)
+                            @if($item['disponible'])
+                                <small class="text-danger">● Averiado</small>
+                            @elseif($asignacion)
                                 <small class="text-danger">● Ocupado</small>
                             @else
                                 <small class="text-success">● Disponible</small>

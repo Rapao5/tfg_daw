@@ -25,7 +25,7 @@ class IncidenciasController extends Controller
         
         $ordenador = repoOrdenadores::getOrdenadores(); 
         
-        return view('home_incidencias', compact('value'));
+        return view('formulario', compact('value'));
     }
 
     public function create(CreateIncidenceRequest $request){
