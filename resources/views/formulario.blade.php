@@ -8,15 +8,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
+<body class="bg-light">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('') }}">Panel de Control</a>
+            <a class="navbar-brand" href="{{ route('incidencias.home') }}">Panel de Control</a>
               <span class="navbar-text text-white-50 ms-auto"><i class="bi bi-tools me-2"></i>Registro de Incidencia</span>
         </div>
     </nav>
 </header>
-<body class="bg-light">
 <main class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6 mb-10">
@@ -25,42 +25,26 @@
                     <h4 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i> Registrar Nueva Incidencia</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('incidencias.store') }}" method="POST">
+                    <form action="{{ route('incidencias.create') }}" method="POST">
                         @csrf
+                        @if(request()->has('ordenador_id'))
+                            <input type="hidden" name="ordenador_id" value="{{ request('ordenador_id') }}">
+                        @endif
+                        @if(request()->has('aula_id'))
+                            <input type="hidden" name="aula_id" value="{{ request('aula_id') }}">
+                        @endif  
+                        @if(request()->has('curso_id'))
+                            <input type="hidden" name="curso_id" value="{{ request('curso_id') }}">
+                        @endif
 
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label for="curso_id" class="form-label"><i class="bi bi-mortarboard me-2"></i>Curso</label>
-                                <select class="form-select @error('curso_id') is-invalid @enderror" id="curso_id" name="curso_id" required>
-                                    <option value="">Seleccionar curso...</option>
-                                    @isset($cursos)
-                                        @foreach($cursos as $curso)
-                                            <option value="{{ $curso['id'] }}" {{ old('curso_id') == $curso['id'] ? 'selected' : '' }}>
-                                                {{ $curso['nivel'] }}º {{ $curso['letra'] }}
-                                            </option>
-                                        @endforeach
-                                    @else
-                                        <option value="">No hay cursos disponibles</option>
-                                    @endisset
-                                </select>
-                                @error('curso_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label for="fecha" class="form-label"><i class="bi bi-calendar-date me-2"></i>Día</label>
-                                <input type="date" class="form-control @error('fecha') is-invalid @enderror" id="fecha" name="fecha" value="{{ old('fecha', date('Y-m-d')) }}" required>
-                                @error('fecha')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label for="hora" class="form-label"><i class="bi bi-clock me-2"></i>Hora</label>
-                                <input type="time" class="form-control @error('hora') is-invalid @enderror" id="hora" name="hora" value="{{ old('hora', date('H:i')) }}" required>
-                                @error('hora')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label"><i class="bi bi-fonts me-2"></i>Título de la Incidencia</label>
+                            <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" value="{{ old('titulo') }}" placeholder="Ej: No enciende el monitor..." required>
+                            @error('titulo')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
