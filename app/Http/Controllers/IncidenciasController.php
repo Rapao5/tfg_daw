@@ -40,8 +40,8 @@ class IncidenciasController extends Controller
         }
     }
 
-    public function homeAdmin(IncidenceRequest $request){
-        $value = $request -> validated();
+    public function homeAdmin(Request $request){
+        $value = $request -> all();
 
         $incidencias = $this -> incidenceService -> getIncidencias($value);
         

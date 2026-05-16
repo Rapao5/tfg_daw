@@ -62,6 +62,10 @@ class IncidenciasRepository
             $query->whereDate('incidencias.fecha', '<=', $value['fecha_fin']);
         }
 
+        if (!empty($value['fecha'])) {
+            $query->whereDate('incidencias.fecha', '=', $value['fecha']);
+        }
+        
         if(isset($value['ordenador_id']) && $value['ordenador_id']){
             $query->where('incidencias.ordenador_id', $value['ordenador_id']);
         }
