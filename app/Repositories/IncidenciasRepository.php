@@ -64,7 +64,7 @@ class IncidenciasRepository
             $query->where('incidencias.ordenador_id', $value['ordenador_id']);
         }
 
-        $status = IncidenciaStatus::tryFrom($value['status']);
+        $status = IncidenciaStatus::tryFrom($value['status'] ?? null);
         
         if($status){
             $query->where('incidencias.status', $value['status']);

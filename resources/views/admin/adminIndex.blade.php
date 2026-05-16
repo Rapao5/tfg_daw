@@ -24,12 +24,12 @@
 <main class="container mt-5">
     <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-4" style="min-height: 50vh;">
         
-        <a href="#" class="btn btn-danger btn-lg p-5 fs-3 shadow-sm rounded-4 d-flex flex-column align-items-center justify-content-center" style="width: 300px; height: 250px;">
+        <a href="{{ route('admin.incidencias') }}" class="btn btn-danger btn-lg p-5 fs-3 shadow-sm rounded-4 d-flex flex-column align-items-center justify-content-center" style="width: 300px; height: 250px;">
             <i class="bi bi-pc-display mb-2" style="font-size: 3rem;"></i> 
             Ver incidencias
         </a>
 
-        <a href="#" class="btn btn-primary btn-lg p-5 fs-3 shadow-sm rounded-4 d-flex flex-column align-items-center justify-content-center" style="width: 300px; height: 250px;">
+        <a href="{{ route('admin.historial') }}" class="btn btn-primary btn-lg p-5 fs-3 shadow-sm rounded-4 d-flex flex-column align-items-center justify-content-center" style="width: 300px; height: 250px;">
             <i class="bi bi-clock-history mb-2" style="font-size: 3rem;"></i>
             Historial
         </a>
