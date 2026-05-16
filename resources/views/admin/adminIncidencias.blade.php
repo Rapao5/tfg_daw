@@ -12,7 +12,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('') }}">Panel de Control</a>
+            <a class="navbar-brand" href="{{ route('admin.incidencias') }}">Panel de Control</a>
         </div>
     </nav>
 </header>
@@ -23,73 +23,63 @@
             <i class="bi bi-arrow-left"></i> Volver al Panel
         </a>
     </div>
-
     <div class="card shadow-sm border-danger">
         <div class="card-header bg-danger text-white d-flex align-items-center">
             <h5 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i> Ordenadores con Incidencias Activas</h5>
         </div>
         <div class="card-body p-0">
-            @php
-                $ordenadoresAveriados = collect($ordenadores ?? [])->filter(function($item) {
-                    return isset($item['tiene_incidencia']) && $item['tiene_incidencia'];
-                });
-                
-                $hayIncidencias = (isset($incidencias) && $incidencias->isNotEmpty()) || $ordenadoresAveriados->isNotEmpty();
-            @endphp
-
-            @if($hayIncidencias)
+            @if(!empty($incidencias))
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th style="width: 15%" class="ps-4">PC</th>
-                                <th style="width: 55%">Detalles</th>
-                                <th style="width: 30%" class="text-end pe-4">Acciones</th>
+                                <th class="ps-4">PC</th>
+                                <th>Título</th>
+                                <th>Descripción</th>
+                                <th>Fecha y hora</th>
+                                <th>Estado</th>
+                                <th class="text-end pe-4">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if(isset($incidencias) && $incidencias->isNotEmpty())
                                 @foreach ($incidencias as $incidencia)
                                     <tr class="table-danger">
                                         <td class="ps-4">
-                                            <strong>Nº {{ $incidencia->ordenador_id ?? 'Desconocido' }}</strong>
+                                            <strong>Nº {{ $incidencia['valores'][0] ?? 'Desconocido' }}</strong>
                                         </td>
                                         <td>
-                                            <span class="badge bg-danger mb-1"><i class="bi bi-tools"></i> Averiado</span>
-                                            <div class="small text-muted">{{ $incidencia->descripcion ?? 'Requiere reparación' }}</div>
+                                            <strong>{{ $incidencia['valores'][1] ?? 'Sin título' }}</strong>
+                                        </td>
+                                        <td>
+                                            <div class="small text-muted">
+                                                {{ $incidencia['valores'][2] ?? 'Sin descripción' }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="small text-muted">
+                                                {{ $incidencia['valores'][3] ?? 'Sin fecha' }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="small fw-bold text-secondary">
+                                                {{ $incidencia['valores'][4]?->value ?? $incidencia['valores'][4]?->name ?? 'Desconocido' }}
+                                            </div>
                                         </td>
                                         <td class="text-end pe-4">
-                                            <form action="{{ route('incidencias.quitar') }}" method="POST" class="d-inline">
-                                                @csrf
-                                                <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
-                                                <button type="submit" class="btn btn-sm btn-success">
-                                                    <i class="bi bi-check-lg"></i> Marcar como Reparado
-                                                </button>
-                                            </form>
+                                            @if(!$incidencia['valores'][5] && $incidencia['valores'][4]?->name !== 'RESUELTO' && strtoupper($incidencia['valores'][4]?->value ?? '') !== 'REPARADO')
+                                                <form action="{{ route('incidencias.quitar') }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    <input type="hidden" name="incidencia_id" value="{{ $incidencia['id'] }}">
+                                                    <button type="submit" class="btn btn-sm btn-success">
+                                                        <i class="bi bi-check-lg"></i> Marcar como Reparado
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <span class="badge bg-secondary"><i class="bi bi-info-circle"></i> Ya reparado</span>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
-                            @else
-                                @foreach ($ordenadoresAveriados as $item)
-                                    <tr class="table-danger">
-                                        <td class="ps-4">
-                                            <strong>Nº {{ $item['nombre'] ?? $item['nombre_ordenador'] }}</strong>
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-danger"><i class="bi bi-tools"></i> Averiado</span>
-                                        </td>
-                                        <td class="text-end pe-4">
-                                            <form action="{{ route('incidencias.quitar') }}" method="POST" class="d-inline">
-                                                @csrf
-                                                <input type="hidden" name="ordenador_id" value="{{ $item['id'] }}">
-                                                <button type="submit" class="btn btn-sm btn-success">
-                                                    <i class="bi bi-check-lg"></i> Marcar como Reparado
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
                         </tbody>
                     </table>
                 </div>
