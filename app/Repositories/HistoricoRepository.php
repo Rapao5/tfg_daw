@@ -28,8 +28,6 @@ class HistoricoRepository
      */
     public static function getHistorico($data)
     {
-        $tabla = [];
-
         $query = Historico::select(
             "historico.id as id",
             "o.nombre as ordenador_nombre",
@@ -70,22 +68,6 @@ class HistoricoRepository
             $query->where('o.id', $data['ordenador_id']);
         }
 
-        $datos = $query->get()->toArray();
-
-        foreach($datos as $dato){
-            $tabla[]=[
-                'id' => $dato['id'],
-                'valores' =>[
-                    $dato['ordenador_nombre'],
-                    $dato['alumno_nombre'],
-                    $dato['alumno_apellidos'],
-                    $dato['curso_nombre'],
-                    $dato['aula_nombre'],
-                    $dato['fecha']
-                ]
-            ]; 
-        }
-
-        return $tabla;
+        return $query->get()->toArray();
     }
 }

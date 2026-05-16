@@ -16,4 +16,8 @@ class OrdenadoresRepository
         return Ordenadores::all()
         ->toArray();
     }
+
+    public static function getOrdenadorModel($id){
+        return Ordenadores::find($id);
+    }
 }

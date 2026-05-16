@@ -6,6 +6,8 @@ use App\Enums\IncidenciaStatus;
 use App\Models\IncidenciasModel;
 use Carbon\Carbon;
 
+use App\Repositories\OrdenadoresRepository as repoOrdenadores;
+
 class IncidenciasRepository
 {
     /**
@@ -20,6 +22,14 @@ class IncidenciasRepository
         
         $status = IncidenciaStatus::tryFrom($value['status'] ?? '') ?? IncidenciaStatus::AVERIADO;
 
+        $ordenador = repoOrdenadores::getOrdenadorModel($value['ordenador_id']);
+        if(!$ordenador){
+            return false;
+        } else {
+            $ordenador->disponible = false;
+            $ordenador->save();
+        }
+
         $incidencia = new IncidenciasModel();
         $incidencia->ordenador_id = $value['ordenador_id'];
         $incidencia->titulo = $value['titulo'];
@@ -28,5 +38,42 @@ class IncidenciasRepository
         $incidencia->status = $status;
         $incidencia->resuelto = false;
         return $incidencia->save();
+    }
+
+    public static function getIncidencias($value){
+        $query = IncidenciasModel::select(
+            "incidencias.id as id",
+            "o.nombre as ordenador_nombre",
+            "incidencias.titulo as titulo",
+            "incidencias.descripcion as descripcion",
+            "incidencias.fecha as fecha",
+            "incidencias.status as status",
+            "incidencias.resuelto as resuelto"
+        )
+        ->join('ordenadores as o', 'incidencias.ordenador_id', '=', 'o.id');
+        
+        if(isset($value['fecha_inicio']) && $value['fecha_inicio']){
+            $query->whereDate('incidencias.fecha', "<", $value['fecha_fin']);
+        }
+
+        if(isset($value['fecha_fin']) && $value['fecha_fin']){
+            $query->whereDate('incidencias.fecha', ">=", $value['fecha_inicio']);
+        }
+
+        if(isset($value['ordenador_id']) && $value['ordenador_id']){
+            $query->where('incidencias.ordenador_id', $value['ordenador_id']);
+        }
+
+        if(isset($value['status']) && $value['status']){
+            $value['status'] = IncidenciaStatus::tryFrom($value['status']);
+
+            $query->where('incidencias.status', $value['status']);
+        }
+
+        if(isset($value['resuelto']) && $value['resuelto']){
+            $query->where('incidencias.resuelto', true);
+        }
+
+        return $query->get()->toArray();
     }
 }

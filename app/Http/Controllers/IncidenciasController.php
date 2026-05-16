@@ -6,6 +6,7 @@ use App\Helpers\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateIncidenceRequest;
 use App\Http\Requests\HomeCreateIncidenceRequest;
+use App\Http\Requests\IncidenceRequest;
 
 use App\Repositories\OrdenadoresRepository as repoOrdenadores;
 use App\Repositories\CursosRepository as repoCursos;
@@ -21,9 +22,7 @@ class IncidenciasController extends Controller
     }
 
     public function home(HomeCreateIncidenceRequest $request){
-        $value = $request -> validated();
-        
-        $ordenador = repoOrdenadores::getOrdenadores(); 
+        $value = $request -> validated(); 
         
         return view('formulario', compact('value'));
     }
@@ -39,5 +38,13 @@ class IncidenciasController extends Controller
         } else {
             return redirect() -> back();
         }
+    }
+
+    public function homeAdmin(IncidenceRequest $request){
+        $value = $request -> validated();
+
+        $incidencias = $this -> incidenceService -> getIncidencias($value);
+        
+        return view('admin.incidencias', compact('incidencias'));
     }
 }
