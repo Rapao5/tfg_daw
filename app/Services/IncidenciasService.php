@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\IncidenciasRepository;
+use App\Repositories\OrdenadoresRepository as repoOrdenadores;
 
 use App\Enums\IncidenciaStatus;
 class IncidenciasService
@@ -12,36 +13,39 @@ class IncidenciasService
     }  
     
     public function getIncidencias($value){
-        $datos = IncidenciasRepository::getIncidencias($value);
-        $tabla = [];
-
-        foreach($datos as $dato){
-            $tabla[]=[
-                'id' => $dato['id'],
-                'valores' =>[
-                    $dato['ordenador_nombre'],
-                    $dato['titulo'],
-                    $dato['descripcion'],
-                    $dato['fecha'],
-                    $dato['status'],
-                    $dato['resuelto']
-                ]
-            ]; 
-        }
-        return $tabla;
+        return IncidenciasRepository::getIncidencias($value);
     }
 
     public function cambiarEstado($incidencia_id, $sin_solucion = false){
         $incidencia = IncidenciasRepository::getIncidencia($incidencia_id);
-
-        if ($incidencia) {
-            $incidencia->status = match ($incidencia->status) {
-                IncidenciaStatus::PENDIENTE     => IncidenciaStatus::MANTENIMIENTO,
-                IncidenciaStatus::MANTENIMIENTO => $sin_solucion ? IncidenciaStatus::SIN_SOLUCION : IncidenciaStatus::RESUELTO,
-                default                         => $incidencia->status,
-            };
-
-            $incidencia->save();
+        if($incidencia){
+            $status = IncidenciaStatus::tryFrom($value['status'] ?? null);
+            if($status){
+                switch($status){
+                    case IncidenciaStatus::PENDIENTE:
+                        $incidencia->status = IncidenciaStatus::MANTENIMIENTO;
+                        break;
+                    case IncidenciaStatus::MANTENIMIENTO:
+                        $incidencia->status = $sin_solucion ? IncidenciaStatus::SIN_SOLUCION : IncidenciaStatus::RESUELTO;
+                        if($sin_solucion){
+                            $ordenador = repoOrdenadores::getOrdenadorModel($incidencia->ordenador_id);
+                            if(!$ordenador){
+                                return false;
+                            } else {
+                                $ordenador->disponible = false;
+                                $ordenador->save();
+                            }
+                        } else {
+                            repoOrdenadores::comprobarEstado($incidencia->ordenador_id);
+                        }
+                        $incidencia->resuelto = true;
+                        break;
+                    default:
+                        break;
+                    
+                }
+                $incidencia->save();
+            }
         }
     }
 }

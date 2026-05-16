@@ -19,7 +19,7 @@ class CreateIncidenceRequest extends FormRequest
             "curso_id" => "required|integer|min:1",
             "descripcion" => "string",
             "titulo" => "required|string|min:10",
-            "status" => "string"
+            "disponibilidad" => "boolean"
         ];
     }
 
@@ -36,7 +36,7 @@ class CreateIncidenceRequest extends FormRequest
             'titulo.string' => 'El título de la incidencia debe ser un texto.',
             'titulo.min' => 'El título de la incidencia debe tener al menos 10 caracteres.',
             'descripcion.string' => 'La descripción de la incidencia debe ser un texto.',
-            'status.string' => 'El estado debe de ser correcto.'
+            'disponibilidad.boolean' => 'La disponibilidad debe ser un valor booleano.'
         ];
     }
 }

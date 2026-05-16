@@ -26,8 +26,10 @@ class IncidenciasRepository
         if(!$ordenador){
             return false;
         } else {
-            $ordenador->disponible = false;
-            $ordenador->save();
+            if($value['disponibilidad']){
+                $ordenador->disponible = false;
+                $ordenador->save();
+            }
         }
 
         $incidencia = new IncidenciasModel();
@@ -74,24 +76,16 @@ class IncidenciasRepository
             $query->where('incidencias.resuelto', true);
         }
 
-        $resultados = [];
-
-        foreach ($query->cursor() as $row) {
-            $resultados[] = [
-                'id' => $row->id,
-                'ordenador_nombre' => $row->ordenador_nombre,
-                'titulo' => $row->titulo,
-                'descripcion' => $row->descripcion,
-                'fecha' => $row->fecha,
-                'status' => $row->status,
-                'resuelto' => $row->resuelto,
-            ];
-        }
-
-        return $resultados;
+        return $query ->paginate(15);
     }
 
     public static function getIncidencia($incidencia_id){
         return IncidenciasModel::find($incidencia_id);
+    }
+
+    public static function getIncidenciasByOrdenador($ordenador_id){
+        return IncidenciasModel::where('ordenador_id', $ordenador_id)
+        ->get()
+        ->toArray();
     }
 }
