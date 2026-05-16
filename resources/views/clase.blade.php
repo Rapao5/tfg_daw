@@ -7,9 +7,33 @@
     <link rel="stylesheet" href="{{ asset('app.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
 </head>
 <body>
-
+<style>
+    #filtrosHeader .input-group {
+        flex-wrap: nowrap;
+    }
+    #filtrosHeader .input-group .ts-wrapper {
+        min-width: 140px; 
+        flex: 1 1 auto;
+    }
+    #filtrosHeader .ts-control .item {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0 !important; 
+    }
+    #filtrosHeader .input-group .ts-wrapper .ts-control {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-top: 0; 
+        padding-bottom: 0;
+    }
+</style>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
         <div class="container-fluid">
@@ -20,7 +44,7 @@
                 <form action="{{ route('asignaciones.filtrar') }}" method="GET" class="d-flex ms-auto gap-2">
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Curso</span>
-                        <select name="curso_id" class="form-select" required>
+                        <select name="curso_id" class="form-select form-select-sm searchable-select" required>
                             <option value="">Seleccionar...</option>
                             @foreach($cursos as $curso)
                                 <option value="{{ $curso['id'] }}" {{ (isset($value) && $value['curso_id'] == $curso['id']) ? 'selected' : '' }}>
@@ -32,7 +56,7 @@
 
                     <div class="input-group input-group-sm">
                         <span class="input-group-text">Aula</span>
-                        <select name="aula_id" class="form-select" required>
+                        <select name="aula_id" class="form-select form-select-sm searchable-select" required>
                             <option value="">Seleccionar...</option>
                             @foreach($aulas as $aula)
                                 <option value="{{ $aula['id'] }}" {{ (isset($value) && $value['aula_id'] == $aula['id']) ? 'selected' : '' }}>
@@ -52,9 +76,14 @@
 <main class="container mt-4">
     @if(isset($ordenadores))
     <div class="d-flex justify-content-center p-2">
-        <button type="submit" class="btn btn-info btn-lg mb-3 p-3">
-            <i class="bi bi-clock-history"></i> Historial
-        </button>
+        <form action="{{ route('asignaciones.historial') }}" method="POST">
+            @csrf
+            <input type="hidden" name="curso_id" value="{{ $value['curso_id'] }}">
+            <input type="hidden" name="aula_id" value="{{ $value['aula_id'] }}">
+            <button type="submit" class="btn btn-info btn-lg mb-3 p-3">
+                <i class="bi bi-clock-history"></i> Historial
+            </button>
+        </form>
     </div>
         <div class="row">
             @foreach ($ordenadores as $item)
@@ -135,5 +164,15 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.searchable-select').forEach(function(el) {
+            new TomSelect(el, {
+                create: false
+            });
+        });
+    });
+</script>
 </body>
 </html>
