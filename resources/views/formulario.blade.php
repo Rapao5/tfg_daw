@@ -60,11 +60,11 @@
                         <div class="mb-3">
                             <label class="form-label d-block"><i class="bi bi-ui-radios me-2"></i>Disponibilidad</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="disponibilidad" id="disponibilidad_si" value="true" {{ old('disponibilidad') == 'true' ? 'checked' : '' }} required>
+                                <input class="form-check-input" type="radio" name="disponibilidad" id="disponibilidad_si" value="0" {{ old('disponibilidad') == '1' ? 'checked' : '' }} required>
                                 <label class="form-check-label" for="disponibilidad_si">Sí</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="disponibilidad" id="disponibilidad_no" value="false" {{ old('disponibilidad') == 'false' ? 'checked' : '' }} required>
+                                <input class="form-check-input" type="radio" name="disponibilidad" id="disponibilidad_no" value="1" {{ old('disponibilidad') == '0' ? 'checked' : '' }} required>
                                 <label class="form-check-label" for="disponibilidad_no">No</label>
                             </div>
                             @error('disponibilidad')
