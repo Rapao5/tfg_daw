@@ -75,13 +75,12 @@
                                         </td>
                                         <td class="text-end pe-4">
                                             @if(!$incidencia->resuelto && ($incidencia->status->name ?? $incidencia->status ?? '') !== 'RESUELTO' && strtoupper($incidencia->status->value ?? $incidencia->status ?? '') !== 'REPARADO')
-                                                <form action="{{ route('admin.incidencias.cambiar', $incidencia->id) }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
-                                                    <button type="submit" class="btn btn-sm btn-success">
-                                                        <i class="bi bi-check-lg"></i> Marcar como Reparado
-                                                    </button>
-                                                </form>
+                                                <a href="{{ route('admin.incidencias.cambiar', ['incidencia_id' => $incidencia->id]) }}" class="btn btn-sm btn-success">
+                                                    <i class="bi bi-check-lg"></i> Marcar como Reparado
+                                                </a>
+                                                <a href="{{ route('admin.incidencias.cambiar', ['incidencia_id' => $incidencia->id], ['sin_solucion' => true])}}" class="btn btn-sm btn-danger">
+                                                    <i class="bi bi-check-lg"></i> Marcar como sin solucion
+                                                </a>
                                             @else
                                                 <span class="badge bg-secondary"><i class="bi bi-info-circle"></i> Ya reparado</span>
                                             @endif
