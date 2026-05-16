@@ -57,6 +57,23 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3">
+                            <label class="form-label d-block"><i class="bi bi-ui-radios me-2"></i>Disponibilidad</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="disponibilidad" id="disponibilidad_si" value="true" {{ old('disponibilidad') == 'true' ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="disponibilidad_si">Sí</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="disponibilidad" id="disponibilidad_no" value="false" {{ old('disponibilidad') == 'false' ? 'checked' : '' }} required>
+                                <label class="form-check-label" for="disponibilidad_no">No</label>
+                            </div>
+                            @error('disponibilidad')
+                                <div class="text-danger small mt-1" require>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             @if(request()->has('curso_id') && request()->has('aula_id'))
                                 <a href="{{ route('asignaciones.filtrar', ['curso_id' => request('curso_id'), 'aula_id' => request('aula_id')]) }}" class="btn btn-secondary"><i class="bi bi-x-lg me-2"></i>Cancelar</a>
