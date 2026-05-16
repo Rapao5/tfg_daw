@@ -58,7 +58,11 @@
                         </div>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="{{ route('asignaciones.vista') }}" class="btn btn-secondary"><i class="bi bi-x-lg me-2"></i>Cancelar</a>
+                            @if(request()->has('curso_id') && request()->has('aula_id'))
+                                <a href="{{ route('asignaciones.filtrar', ['curso_id' => request('curso_id'), 'aula_id' => request('aula_id')]) }}" class="btn btn-secondary"><i class="bi bi-x-lg me-2"></i>Cancelar</a>
+                            @else
+                                <a href="{{ route('asignaciones.vista') }}" class="btn btn-secondary"><i class="bi bi-x-lg me-2"></i>Cancelar</a>
+                            @endif
                             <button type="submit" class="btn btn-danger"><i class="bi bi-send-fill me-2"></i>Registrar Incidencia</button>
                         </div>
                     </form>
