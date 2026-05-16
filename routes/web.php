@@ -32,5 +32,3 @@ Route::get('/admin/incidencias/{incidencia_id}', [IncidenciasController::class, 
 
 // Rutas para ver historial
 Route::get('/admin/historial', [HistorialController::class, 'home'])->name('admin.historial');
-
-Route::post('/admin/incidencias/quitar', [IncidenciasController::class, 'quitar'])->name('incidencias.quitar');

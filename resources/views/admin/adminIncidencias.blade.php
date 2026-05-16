@@ -67,7 +67,7 @@
                                         </td>
                                         <td class="text-end pe-4">
                                             @if(!$incidencia['valores'][5] && $incidencia['valores'][4]?->name !== 'RESUELTO' && strtoupper($incidencia['valores'][4]?->value ?? '') !== 'REPARADO')
-                                                <form action="{{ route('incidencias.quitar') }}" method="POST" class="d-inline">
+                                                <form action="{{ route('admin.incidencias.cambiar', $incidencia['id']) }}" method="POST" class="d-inline">
                                                     @csrf
                                                     <input type="hidden" name="incidencia_id" value="{{ $incidencia['id'] }}">
                                                     <button type="submit" class="btn btn-sm btn-success">
