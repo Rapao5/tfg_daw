@@ -45,7 +45,7 @@ class IncidenciasController extends Controller
 
         $incidencias = $this -> incidenceService -> getIncidencias($value);
         
-        return view('admin.adminIncidencias', compact('incidencias'));
+        return view('admin.adminIncidencias', compact('incidencias','value'));
     }
 
     public function cambiarEstado($incidencia_id, $sin_solucion = false){
