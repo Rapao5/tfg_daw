@@ -20,7 +20,7 @@ class IncidenciasRepository
         $fecha = $value['fecha'] ?? Carbon::now()->toDateString();
         $hora = $value['hora'] ?? Carbon::now()->toTimeString();
         
-        $status = IncidenciaStatus::tryFrom($value['status'] ?? '') ?? IncidenciaStatus::AVERIADO;
+        $status = IncidenciaStatus::tryFrom($value['status'] ?? '') ?? IncidenciaStatus::PENDIENTE;
 
         $ordenador = repoOrdenadores::getOrdenadorModel($value['ordenador_id']);
         if(!$ordenador){
@@ -89,5 +89,9 @@ class IncidenciasRepository
         }
 
         return $resultados;
+    }
+
+    public static function getIncidencia($incidencia_id){
+        return IncidenciasModel::find($incidencia_id);
     }
 }

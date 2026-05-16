@@ -28,6 +28,7 @@ Route::post('/incidencias', [IncidenciasController::class, 'create'])->name('inc
 
 // Rutas para incidencias de admin
 Route::get('/admin/incidencias', [IncidenciasController::class, 'homeAdmin'])->name('admin.incidencias');
+Route::get('/admin/incidencias/{incidencia_id}', [IncidenciasController::class, 'cambiarEstado'])->name('admin.incidencias.cambiar');
 
 // Rutas para ver historial
 Route::get('/admin/historial', [HistorialController::class, 'home'])->name('admin.historial');

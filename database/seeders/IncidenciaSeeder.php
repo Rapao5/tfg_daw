@@ -19,7 +19,7 @@ class IncidenciaSeeder extends Seeder
             'descripcion' => 'La pantalla del ordenador no funciona correctamente.',
             'fecha' => '2024-05-01',
             'ordenador_id' => 1,
-            'status' => IncidenciaStatus::AVERIADO,
+            'status' => IncidenciaStatus::PENDIENTE,
         ]);
 
         IncidenciasModel::create([

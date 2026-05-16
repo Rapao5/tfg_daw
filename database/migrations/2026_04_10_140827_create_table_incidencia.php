@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('descripcion');
             $table->timestamp('fecha');
             $table->foreignId('ordenador_id')->constrained('ordenadores')->cascadeOnDelete();
-            $table->enum("status", IncidenciaStatus::values())->default(IncidenciaStatus::AVERIADO);
+            $table->enum("status", IncidenciaStatus::values())->default(IncidenciaStatus::PENDIENTE);
             $table->boolean('resuelto')->default(false);
             $table->timestamps();
         });

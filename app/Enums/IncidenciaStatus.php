@@ -9,7 +9,6 @@ namespace App\Enums;
  */
 enum IncidenciaStatus:string
 {
-    case AVERIADO = "AVERIADO";
     case MANTENIMIENTO = "MANTENIMIENTO";
     case RESUELTO = "RESUELTO";
     case PENDIENTE = "PENDIENTE";

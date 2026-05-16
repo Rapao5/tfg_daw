@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\IncidenciasRepository;
 
+use App\Enums\IncidenciaStatus;
 class IncidenciasService
 {
     public function create($value){
@@ -28,5 +29,19 @@ class IncidenciasService
             ]; 
         }
         return $tabla;
+    }
+
+    public function cambiarEstado($incidencia_id, $sin_solucion = false){
+        $incidencia = IncidenciasRepository::getIncidencia($incidencia_id);
+
+        if ($incidencia) {
+            $incidencia->status = match ($incidencia->status) {
+                IncidenciaStatus::PENDIENTE     => IncidenciaStatus::MANTENIMIENTO,
+                IncidenciaStatus::MANTENIMIENTO => $sin_solucion ? IncidenciaStatus::SIN_SOLUCION : IncidenciaStatus::RESUELTO,
+                default                         => $incidencia->status,
+            };
+
+            $incidencia->save();
+        }
     }
 }
