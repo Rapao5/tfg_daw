@@ -72,7 +72,6 @@
         </div>
     </nav>
 </header>
-
 <main class="container mt-4">
     @if(isset($ordenadores))
     <div class="d-flex justify-content-center p-2">
@@ -144,7 +143,7 @@
                         </div>
 
                         <div class="card-footer py-1 bg-light">
-                            @if($item['disponible'])
+                            @if($item['disponible'] == false)
                                 <small class="text-danger">● Averiado</small>
                             @elseif($asignacion)
                                 <small class="text-danger">● Ocupado</small>
