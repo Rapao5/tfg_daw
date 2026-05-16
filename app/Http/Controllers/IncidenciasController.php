@@ -45,6 +45,6 @@ class IncidenciasController extends Controller
 
         $incidencias = $this -> incidenceService -> getIncidencias($value);
         
-        return view('admin.incidencias', compact('incidencias'));
+        return view('admin.adminIncidencias', compact('incidencias'));
     }
 }
