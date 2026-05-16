@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="{{ asset('app.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        .pagination nav .d-sm-flex > div:first-child {
+            display: none !important;
+        }
+        .pagination nav .d-sm-flex {
+            justify-content: center !important;
+        }
+    </style>
 </head>
 <body class="bg-light">
 <header>
@@ -16,7 +24,7 @@
         </div>
     </nav>
 </header>
-<main class="container mt-5">
+<main class="container mt-5 mb-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0 text-secondary"><i class="bi bi-tools"></i> Gestión de Incidencias</h2>
         <a href="{{ route('asignaciones.vista') }}" class="btn btn-outline-secondary">
@@ -45,31 +53,31 @@
                                 @foreach ($incidencias as $incidencia)
                                     <tr class="table-danger">
                                         <td class="ps-4">
-                                            <strong>Nº {{ $incidencia['valores'][0] ?? 'Desconocido' }}</strong>
+                                            <strong>Nº {{ $incidencia->ordenador_nombre ?? 'Desconocido' }}</strong>
                                         </td>
                                         <td>
-                                            <strong>{{ $incidencia['valores'][1] ?? 'Sin título' }}</strong>
+                                            <strong>{{ $incidencia->titulo ?? 'Sin título' }}</strong>
                                         </td>
                                         <td>
                                             <div class="small text-muted">
-                                                {{ $incidencia['valores'][2] ?? 'Sin descripción' }}
+                                                {{ $incidencia->descripcion ?? 'Sin descripción' }}
                                             </div>
                                         </td>
                                         <td>
                                             <div class="small text-muted">
-                                                {{ $incidencia['valores'][3] ?? 'Sin fecha' }}
+                                                {{ $incidencia->fecha ?? 'Sin fecha' }}
                                             </div>
                                         </td>
                                         <td>
                                             <div class="small fw-bold text-secondary">
-                                                {{ $incidencia['valores'][4]?->value ?? $incidencia['valores'][4]?->name ?? 'Desconocido' }}
+                                                {{ $incidencia->status->value ?? $incidencia->status->name ?? $incidencia->status ?? 'Desconocido' }}
                                             </div>
                                         </td>
                                         <td class="text-end pe-4">
-                                            @if(!$incidencia['valores'][5] && $incidencia['valores'][4]?->name !== 'RESUELTO' && strtoupper($incidencia['valores'][4]?->value ?? '') !== 'REPARADO')
-                                                <form action="{{ route('admin.incidencias.cambiar', $incidencia['id']) }}" method="POST" class="d-inline">
+                                            @if(!$incidencia->resuelto && ($incidencia->status->name ?? $incidencia->status ?? '') !== 'RESUELTO' && strtoupper($incidencia->status->value ?? $incidencia->status ?? '') !== 'REPARADO')
+                                                <form action="{{ route('admin.incidencias.cambiar', $incidencia->id) }}" method="POST" class="d-inline">
                                                     @csrf
-                                                    <input type="hidden" name="incidencia_id" value="{{ $incidencia['id'] }}">
+                                                    <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
                                                     <button type="submit" class="btn btn-sm btn-success">
                                                         <i class="bi bi-check-lg"></i> Marcar como Reparado
                                                     </button>
@@ -83,6 +91,9 @@
                         </tbody>
                     </table>
                 </div>
+                    <div class="d-flex justify-content-center pt-4 pb-2 border-top pagination">
+                        {{ $incidencias->withQueryString()->links('pagination::bootstrap-5') }}
+                    </div>
             @else
                 <div class="p-5 text-center text-muted">
                     <i class="bi bi-check-circle text-success mb-3" style="font-size: 4rem;"></i>
