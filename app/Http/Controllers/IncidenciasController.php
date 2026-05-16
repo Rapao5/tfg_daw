@@ -49,7 +49,7 @@ class IncidenciasController extends Controller
     }
 
     public function cambiarEstado($incidencia_id, $sin_solucion = false){
-        $this -> incidenceService -> cambiarEstado($incidencia_id);
+        $this -> incidenceService -> cambiarEstado($incidencia_id, $sin_solucion);
 
         return redirect() -> back();
     }
