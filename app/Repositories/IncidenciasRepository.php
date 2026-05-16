@@ -52,21 +52,21 @@ class IncidenciasRepository
         )
         ->join('ordenadores as o', 'incidencias.ordenador_id', '=', 'o.id');
         
-        if(isset($value['fecha_inicio']) && $value['fecha_inicio']){
-            $query->whereDate('incidencias.fecha', "<", $value['fecha_fin']);
+        if (!empty($value['fecha_inicio'])) {
+            $query->whereDate('incidencias.fecha', '>=', $value['fecha_inicio']);
         }
 
-        if(isset($value['fecha_fin']) && $value['fecha_fin']){
-            $query->whereDate('incidencias.fecha', ">=", $value['fecha_inicio']);
+        if (!empty($value['fecha_fin'])) {
+            $query->whereDate('incidencias.fecha', '<=', $value['fecha_fin']);
         }
 
         if(isset($value['ordenador_id']) && $value['ordenador_id']){
             $query->where('incidencias.ordenador_id', $value['ordenador_id']);
         }
 
-        if(isset($value['status']) && $value['status']){
-            $value['status'] = IncidenciaStatus::tryFrom($value['status']);
-
+        $status = IncidenciaStatus::tryFrom($value['status']);
+        
+        if($status){
             $query->where('incidencias.status', $value['status']);
         }
 
@@ -74,6 +74,20 @@ class IncidenciasRepository
             $query->where('incidencias.resuelto', true);
         }
 
-        return $query->get()->toArray();
+        $resultados = [];
+
+        foreach ($query->cursor() as $row) {
+            $resultados[] = [
+                'id' => $row->id,
+                'ordenador_nombre' => $row->ordenador_nombre,
+                'titulo' => $row->titulo,
+                'descripcion' => $row->descripcion,
+                'fecha' => $row->fecha,
+                'status' => $row->status,
+                'resuelto' => $row->resuelto,
+            ];
+        }
+
+        return $resultados;
     }
 }
