@@ -3,7 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Services\HistorialService;
-    use App\Http\Requests\HistoricoRequest;
+    use App\Http\Requests\CreateHistoricoRequest;
     use Illuminate\Http\Request;
     use Carbon\Carbon;
 
@@ -50,5 +50,17 @@
             $historial = $this->historialService->getHistorico($data);
 
             return view('admin.historial', compact('historial', 'data'));
+        }
+
+        /**
+         * Registra el estado actual de las asignaciones en el histórico.
+         *
+         * @param CreateHistoricoRequest $request Datos necesarios para generar el histórico.
+         * @return \Illuminate\Http\RedirectResponse Redirección a la página anterior.
+         */
+        public function historico(CreateHistoricoRequest $request){
+            $data = $request->validated();
+            $this -> historialService ->historico($data);
+            return redirect()->back();
         }
     }

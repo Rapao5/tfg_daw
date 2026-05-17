@@ -31,4 +31,15 @@ class HistorialService
         }
         return $tabla;
     }
+
+    /**
+     * Crea registros en el historial de asignaciones.
+     *
+     * @param array $value Lista de datos de asignación para persistir.
+     * @return void
+     */
+    public function historico($value){
+        repoHistorial::createHistorico($value);
+    }
+
 }

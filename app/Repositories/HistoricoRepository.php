@@ -4,6 +4,10 @@ namespace App\Repositories;
 
 use App\Models\HistoricoModel as Historico;
 
+use App\Http\Requests\CreateHistoricoRequest;
+
+use App\Repositories\AsignacionesOrdenadoresRepository as repoAsignaciones;
+
 class HistoricoRepository
 {
     /**
@@ -13,7 +17,9 @@ class HistoricoRepository
      * @return void
      */
     public static function createHistorico($value){
-        foreach($value as $valor){
+        $asignaciones = repoAsignaciones::getAsignaciones($value['curso_id'], $value['aula_id']);
+
+        foreach($asignaciones as $valor){
             $historico = new Historico();
             $historico->asignacion_id = $valor['asignacion_id'];
             $historico->save();

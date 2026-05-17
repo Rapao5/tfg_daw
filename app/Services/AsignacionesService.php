@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Repositories\CursosAlumnosRepository;
 use App\Repositories\AsignacionesOrdenadoresRepository;
 use App\Repositories\AulasOrdenadoresRepository;
-use App\Repositories\HistoricoRepository;
 
 /**
  * Clase AsignacionesService
@@ -82,16 +81,6 @@ class AsignacionesService
     }
 */
     
-    /**
-     * Crea registros en el historial de asignaciones.
-     *
-     * @param array $value Lista de datos de asignación para persistir.
-     * @return void
-     */
-    public function historico($value){
-        HistoricoRepository::createHistorico($value);
-    }
-
     /**
      * Ejecuta el borrado lógico de una asignación.
      *
