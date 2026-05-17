@@ -114,15 +114,23 @@
                                             </div>
                                         </td>
                                         <td class="text-end pe-4">
-                                            @if(!$incidencia->resuelto && ($incidencia->status->name ?? $incidencia->status ?? '') !== 'RESUELTO' && strtoupper($incidencia->status->value ?? $incidencia->status ?? '') !== 'REPARADO')
-                                                <a href="{{ route('admin.incidencias.cambiar', ['incidencia_id' => $incidencia->id]) }}" class="btn btn-sm btn-success">
-                                                    <i class="bi bi-check-lg"></i>Reparado
+                                            @php
+                                                $statusName = strtolower($incidencia->status->name ?? $incidencia->status ?? '');
+                                            @endphp
+
+                                            @if($statusName === 'sin_solucion')
+                                                <span class="badge bg-danger"><i class="bi bi-x-circle"></i> Sin solución</span>
+                                            @elseif($statusName === 'resuelto' || $incidencia->resuelto)
+                                                <span class="badge bg-secondary"><i class="bi bi-info-circle"></i> Reparado</span>
+                                            @else
+                                                <a href="{{ route('admin.incidencias.cambiar', ['incidencia_id' => $incidencia->id]) }}" 
+                                                   class="btn btn-sm {{ $statusName === 'pendiente' ? 'btn-warning' : 'btn-success' }}">
+                                                    <i class="bi {{ $statusName === 'pendiente' ? 'bi-tools' : 'bi-check-lg' }}"></i> 
+                                                    {{ $statusName === 'pendiente' ? 'Mantenimiento' : 'Reparado' }}
                                                 </a>
                                                 <a href="{{ route('admin.incidencias.cambiar', ['incidencia_id' => $incidencia->id, 'sin_solucion' => true]) }}" class="btn btn-sm btn-danger">
-                                                    <i class="bi bi-check-lg"></i>Sin solución 
+                                                    <i class="bi bi-x-circle"></i> Sin solución 
                                                 </a>
-                                            @else
-                                                <span class="badge bg-secondary"><i class="bi bi-info-circle"></i> Ya reparado</span>
                                             @endif
                                         </td>
                                     </tr>
