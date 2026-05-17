@@ -34,11 +34,6 @@
     </div>
     <div class="card shadow-sm mb-4">
         <div class="card-body">
-            @php
-                if(empty($ordenadores)) {
-                    $ordenadores = \App\Models\OrdenadoresModel::all()->sortBy('nombre', SORT_NATURAL);
-                }
-            @endphp
             <form action="{{ route('admin.incidencias') }}" method="GET" class="row g-3 align-items-end">
                 <div class="col-md-3">
                     <label for="ordenador_id" class="form-label text-secondary small fw-bold"><i class="bi bi-pc-display me-1"></i> Ordenador</label>
@@ -46,8 +41,8 @@
                         <option value="">Buscar por PC...</option>
                         @if(isset($ordenadores))
                             @foreach($ordenadores as $ordenador)
-                                <option value="{{ $ordenador->id }}" {{ request('ordenador_id') == $ordenador->id ? 'selected' : '' }}>
-                                    Nº {{ $ordenador->nombre }}
+                                <option value="{{ $ordenador['id'] }}" {{ isset($value['ordenador_id']) ? ($value['ordenador_id'] == $ordenador['id'] ? 'selected' : '') : '' }}>
+                                    Nº {{ $ordenador['nombre'] }}
                                 </option>
                             @endforeach
                         @endif
@@ -55,14 +50,14 @@
                 </div>
                 <div class="col-md-3">
                     <label for="fecha" class="form-label text-secondary small fw-bold"><i class="bi bi-calendar-date me-1"></i> Fecha</label>
-                    <input type="date" name="fecha" id="fecha" class="form-control" value="{{ request('fecha') }}">
+                    <input type="date" name="fecha" id="fecha" class="form-control" value="{{ isset($value['fecha']) ? $value['fecha'] : '' }}">
                 </div>
                 <div class="col-md-4">
                     <label for="status" class="form-label text-secondary small fw-bold"><i class="bi bi-tag me-1"></i> Estado</label>
                     <select name="status" id="status" class="form-select">
                         <option value="">Todos los estados</option>
-                        @foreach(\App\Enums\IncidenciaStatus::cases() as $estado)
-                            <option value="{{ $estado->value }}" {{ request('status') == $estado->value ? 'selected' : '' }}>
+                        @foreach($estados as $estado)
+                            <option value="{{ $estado->value }}" {{ isset($value['status']) ? ($value['status'] == $estado->value ? 'selected' : '') : '' }}>
                                 {{ ucfirst(strtolower(str_replace('_', ' ', $estado->name))) }}
                             </option>
                         @endforeach

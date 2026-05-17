@@ -21,7 +21,8 @@ class IncidenciasService
         if($incidencia){
             switch($incidencia->status){
                 case IncidenciaStatus::PENDIENTE:
-                    $incidencia->status = IncidenciaStatus::MANTENIMIENTO;
+                    $incidencia->status = $sin_solucion ? IncidenciaStatus::SIN_SOLUCION : IncidenciaStatus::MANTENIMIENTO;
+                    $sin_solucion ? $incidencia->resuelto = true : null;
                     break;
                 case IncidenciaStatus::MANTENIMIENTO:
                     $incidencia->status = $sin_solucion ? IncidenciaStatus::SIN_SOLUCION : IncidenciaStatus::RESUELTO;

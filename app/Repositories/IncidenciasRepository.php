@@ -53,14 +53,6 @@ class IncidenciasRepository
             "incidencias.resuelto as resuelto"
         )
         ->join('ordenadores as o', 'incidencias.ordenador_id', '=', 'o.id');
-        
-        if (!empty($value['fecha_inicio'])) {
-            $query->whereDate('incidencias.fecha', '>=', $value['fecha_inicio']);
-        }
-
-        if (!empty($value['fecha_fin'])) {
-            $query->whereDate('incidencias.fecha', '<=', $value['fecha_fin']);
-        }
 
         if (!empty($value['fecha'])) {
             $query->whereDate('incidencias.fecha', '=', $value['fecha']);
@@ -69,10 +61,8 @@ class IncidenciasRepository
         if(isset($value['ordenador_id']) && $value['ordenador_id']){
             $query->where('incidencias.ordenador_id', $value['ordenador_id']);
         }
-
-        $status = IncidenciaStatus::tryFrom($value['status'] ?? null);
         
-        if($status){
+        if(isset($value['status']) && $value['status']){
             $query->where('incidencias.status', $value['status']);
         }
 

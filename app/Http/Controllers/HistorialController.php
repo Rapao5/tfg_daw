@@ -4,7 +4,8 @@
 
     use App\Services\HistorialService;
     use App\Http\Requests\HistoricoRequest;
-use Carbon\Carbon;
+    use Illuminate\Http\Request;
+    use Carbon\Carbon;
 
     class HistorialController extends Controller {
         protected $historialService;
@@ -16,11 +17,11 @@ use Carbon\Carbon;
         /**
          * Devuelve una lista formateada para poder introducirla en una tabla
          * 
-         * @param HistoricoRequest $request
+         * @param Request $request
          * @return \Illuminate\Contracts\View\View
          */
-        public function home(HistoricoRequest $request) { 
-            $data = $request->validated();
+        public function home(Request $request) { 
+            $data = $request->all();
 
             if(!isset($data['fecha_inicio']) && !$data['fecha_inicio']){
                 $data['fecha_inicio'] = Carbon::now() -> subdays(3) ->format('Y-m-d');

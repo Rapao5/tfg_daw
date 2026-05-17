@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateIncidenceRequest;
 use App\Http\Requests\HomeCreateIncidenceRequest;
-use App\Http\Requests\IncidenceRequest;
 
 use App\Repositories\OrdenadoresRepository as repoOrdenadores;
-use App\Repositories\CursosRepository as repoCursos;
-use App\Repositories\AulasRepository as repoAulas;
 use App\Services\IncidenciasService;
+use App\Enums\IncidenciaStatus;
+use Carbon\Carbon;
 
 class IncidenciasController extends Controller
 {
@@ -43,12 +41,18 @@ class IncidenciasController extends Controller
     public function homeAdmin(Request $request){
         $value = $request -> all();
 
+        $estados = IncidenciaStatus::cases();
+
+        $ordenadores = repoOrdenadores::getOrdenadores();
+
         $incidencias = $this -> incidenceService -> getIncidencias($value);
         
-        return view('admin.adminIncidencias', compact('incidencias','value'));
+        return view('admin.adminIncidencias', compact('incidencias','value', 'ordenadores', 'estados'));
     }
 
-    public function cambiarEstado($incidencia_id, $sin_solucion = false){
+    public function cambiarEstado($incidencia_id, Request $request)
+    {
+        $sin_solucion = $request -> input('sin_solucion', false);
         $this -> incidenceService -> cambiarEstado($incidencia_id, $sin_solucion);
 
         return redirect() -> back();
