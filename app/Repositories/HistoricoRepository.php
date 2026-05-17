@@ -39,10 +39,12 @@ class HistoricoRepository
             "o.nombre as ordenador_nombre",
             "a.nombre as alumno_nombre",
             "a.apellidos as alumno_apellidos",
-            "c.nombre as curso_nombre",
+            "c.nivel as curso_nivel",
+            "c.letra as curso_letra",
             "au.nombre as aula_nombre",
             "historico.created_at as fecha"
         )
+        ->from('historico')
         ->join('asignaciones_ordenadores as ao', 'historico.asignacion_id', '=', 'ao.id')
         ->join('ordenadores as o', 'ao.ordenador_id', '=', 'o.id')
         ->join('alumnos as a', 'ao.alumno_id', '=', 'a.id')
@@ -50,10 +52,10 @@ class HistoricoRepository
         ->join('cursos as c', 'ca.curso_id', '=', 'c.id')
         ->join('aulas_ordenadores as auo', 'ao.ordenador_id', '=', 'auo.ordenador_id')
         ->join('aulas as au', 'auo.aula_id', '=', 'au.id')
-        ->whereDate('historico.created_at', "<", $data['fecha_inicio'])
-        ->whereDate('historico.created_at', ">", $data['fecha_fin'])
-        ->whereTime('historico.created_at', "<", $data['hora_inicio'])
-        ->whereTime('historico.created_at', ">", $data['hora_fin']);
+        ->whereDate('historico.created_at', ">=", $data['fecha_inicio'])
+        ->whereDate('historico.created_at', "<=", $data['fecha_fin'])
+        ->whereTime('historico.created_at', ">=", $data['hora_inicio'])
+        ->whereTime('historico.created_at', "<=", $data['hora_fin']);
         
         if(isset($data[' cursos_id']) && $data['cursos_id']){
             $query->where('ca.curso_id', $data['cursos_id']);

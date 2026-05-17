@@ -23,7 +23,8 @@ class HistorialService
                     $dato['ordenador_nombre'],
                     $dato['alumno_nombre'],
                     $dato['alumno_apellidos'],
-                    $dato['curso_nombre'],
+                    $dato['curso_nivel'],
+                    $dato['curso_letra'],
                     $dato['aula_nombre'],
                     $dato['fecha']
                 ]

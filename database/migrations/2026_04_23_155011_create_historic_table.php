@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('historic', function (Blueprint $table) {
+        Schema::create('historico', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asignacion_id')->constrained('asignaciones_ordenadores');
             $table->timestamps();

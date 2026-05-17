@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class HistoricoModel extends Model
 {
-    protected $table = "historic";
+    protected $table = "historico";
 
     protected $fillable = ['asignacion_id'];
 
