@@ -20,7 +20,7 @@ Route::post("/asignaciones/crear", [AsignacionesOrdenadorController::class, 'min
 Route::post("/asignaciones/borrar", [AsignacionesOrdenadorController::class, 'miniBorrar'])->name('asignaciones.miniBorrar');
 
 // Ruta para añadir al historial
-Route::post('/asignaciones/historial', [AsignacionesOrdenadorController::class, 'historico'])->name('asignaciones.historial');
+Route::post('/asignaciones/historial', [HistorialController::class, 'historico'])->name('asignaciones.historial');
 
 // Rutas para incidencias
 Route::get('/incidencias', [IncidenciasController::class, 'home'])->name('incidencias.home');
