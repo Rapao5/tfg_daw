@@ -79,7 +79,7 @@ class IncidenciasRepository
 
     public static function getIncidenciasByOrdenador($ordenador_id){
         return IncidenciasModel::where('ordenador_id', $ordenador_id)
-        ->get()
-        ->toArray();
+        ->where('resuelto', false)
+        ->exists();
     }
 }

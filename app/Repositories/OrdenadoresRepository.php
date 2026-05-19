@@ -25,9 +25,8 @@ class OrdenadoresRepository
 
     public static function comprobarEstado($ordenador_id){
         $ordenador = Ordenadores::find($ordenador_id);
-        if($ordenador){
-            $incidencias = repoIncidencias::getIncidenciasByOrdenador($ordenador_id);
-            if(empty($incidencias)){
+        if($ordenador){ 
+            if(!repoIncidencias::getIncidenciasByOrdenador($ordenador_id)){
                 $ordenador->disponible = true;
                 $ordenador->save();
             }   
