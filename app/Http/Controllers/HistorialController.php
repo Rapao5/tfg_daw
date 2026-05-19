@@ -5,11 +5,12 @@
     use App\Services\HistorialService;
     use App\Http\Requests\CreateHistoricoRequest;
     use Illuminate\Http\Request;
-    use App\Models\OrdenadoresModel;
-    use App\Models\AlumnosModel;
-    use App\Models\AulasModel;
-    use App\Models\CursosModel;
     use Carbon\Carbon;
+
+    use App\Repositories\OrdenadoresRepository as repoOrdenadores;
+    use App\Repositories\CursosRepository as repoCursos;
+    use App\Repositories\AulasRepository as repoAulas;
+    use App\Repositories\AlumnosRepository as repoAlumnos;
 
     class HistorialController extends Controller {
         protected $historialService;
@@ -53,10 +54,10 @@
 
             $historial = $this->historialService->getHistorico($data);
 
-            $ordenadores = OrdenadoresModel::all();
-            $alumnos = AlumnosModel::orderBy('apellidos', 'asc')->orderBy('nombre', 'asc')->get();
-            $aulas = AulasModel::all();
-            $cursos = CursosModel::all();
+            $ordenadores = repoOrdenadores::getOrdenadores();
+            $alumnos = repoAlumnos::getAlumnos();
+            $aulas = repoAulas::getAulas();
+            $cursos = repoCursos::getCursos();
 
             return view('admin.historial', compact('historial', 'data', 'ordenadores', 'alumnos', 'aulas', 'cursos'));
         }

@@ -23,10 +23,15 @@ class IncidenciasService
                 case IncidenciaStatus::PENDIENTE:
                     $incidencia->status = $sin_solucion ? IncidenciaStatus::SIN_SOLUCION : IncidenciaStatus::MANTENIMIENTO;
                     $sin_solucion ? $incidencia->resuelto = true : null;
+                    $incidencia->save();
+                    if($sin_solucion){
+                        repoOrdenadores::marcarDeshabilitado($incidencia->ordenador_id);
+                    }
                     break;
                 case IncidenciaStatus::MANTENIMIENTO:
                     $incidencia->status = $sin_solucion ? IncidenciaStatus::SIN_SOLUCION : IncidenciaStatus::RESUELTO;
                     $incidencia->resuelto = true;
+                    $incidencia->save();
                     if($sin_solucion){
                         repoOrdenadores::marcarDeshabilitado($incidencia->ordenador_id);
                     } else {
@@ -37,7 +42,6 @@ class IncidenciasService
                     break;
                 
             }
-            $incidencia->save();
         }
     }
 }
