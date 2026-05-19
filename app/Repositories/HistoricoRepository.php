@@ -57,7 +57,7 @@ class HistoricoRepository
         ->whereTime('historico.created_at', ">=", $data['hora_inicio'])
         ->whereTime('historico.created_at', "<=", $data['hora_fin']);
         
-        if(isset($data[' cursos_id']) && $data['cursos_id']){
+        if(isset($data['cursos_id']) && $data['cursos_id']){
             $query->where('ca.curso_id', $data['cursos_id']);
         }
 
