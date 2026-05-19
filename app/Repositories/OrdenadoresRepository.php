@@ -32,4 +32,12 @@ class OrdenadoresRepository
             }   
         }
     }
+
+    public static function marcarDeshabilitado($ordenador_id){
+        $ordenador = Ordenadores::find($ordenador_id);
+        if($ordenador){ 
+            $ordenador->disponible = false;
+            $ordenador->save();
+        }
+    }
 }

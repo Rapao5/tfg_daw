@@ -28,13 +28,7 @@ class IncidenciasService
                     $incidencia->status = $sin_solucion ? IncidenciaStatus::SIN_SOLUCION : IncidenciaStatus::RESUELTO;
                     $incidencia->resuelto = true;
                     if($sin_solucion){
-                        $ordenador = repoOrdenadores::getOrdenadorModel($incidencia->ordenador_id);
-                        if(!$ordenador){
-                            return false;
-                        } else {
-                            $ordenador->disponible = false;
-                            $ordenador->save();
-                        }
+                        repoOrdenadores::marcarDeshabilitado($incidencia->ordenador_id);
                     } else {
                         repoOrdenadores::comprobarEstado($incidencia->ordenador_id);
                     }
