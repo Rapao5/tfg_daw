@@ -33,13 +33,15 @@ class OrdenadoresRepository
         }
     }
 
-    public static function marcarDeshabilitado($ordenador_id){
+    public static function marcarDeshabilitado($ordenador_id)
+{
         $ordenador = Ordenadores::find($ordenador_id);
-        if($ordenador){ 
-            $ordenador->disponible = false;
-            $ordenador->save();
-        } else {
+        if (!$ordenador) {
             dd('No se ha encontrado el ordenador con id: '.$ordenador_id);
         }
+        $ordenador->disponible = 0;
+        dd($ordenador->disponible);
+        $guardado = $ordenador->save();
+        dd($guardado, $ordenador);
     }
 }
