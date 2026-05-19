@@ -26,6 +26,7 @@ class IncidenciasService
                     break;
                 case IncidenciaStatus::MANTENIMIENTO:
                     $incidencia->status = $sin_solucion ? IncidenciaStatus::SIN_SOLUCION : IncidenciaStatus::RESUELTO;
+                    $incidencia->resuelto = true;
                     if($sin_solucion){
                         $ordenador = repoOrdenadores::getOrdenadorModel($incidencia->ordenador_id);
                         if(!$ordenador){
@@ -37,7 +38,6 @@ class IncidenciasService
                     } else {
                         repoOrdenadores::comprobarEstado($incidencia->ordenador_id);
                     }
-                    $incidencia->resuelto = true;
                     break;
                 default:
                     break;
