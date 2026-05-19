@@ -38,6 +38,8 @@ class OrdenadoresRepository
         if($ordenador){ 
             $ordenador->disponible = false;
             $ordenador->save();
+        } else {
+            dd('No se ha encontrado el ordenador con id: '.$ordenador_id);
         }
     }
 }
