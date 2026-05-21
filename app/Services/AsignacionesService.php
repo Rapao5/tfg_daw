@@ -85,20 +85,20 @@ class AsignacionesService
      * Ejecuta el borrado lógico de una asignación.
      *
      * @param int $asignacion_id ID de la asignación a desactivar.
-     * @return void
+     * @return bool
      */
     public function miniBorrarAsignacionOrdenador($asignacion_id){
-        AsignacionesOrdenadoresRepository::miniBorrar($asignacion_id);
+        return AsignacionesOrdenadoresRepository::miniBorrar($asignacion_id);
     }
 
     /**
      * Crea o reactiva una asignación de ordenador para un alumno.
      *
      * @param array $value Contiene 'alumno_id' y 'ordenador_id'.
-     * @return void
+     * @return bool
      */
     public function miniCrearAsignacionOrdenador($value){
-        AsignacionesOrdenadoresRepository::miniCrear($value);
+        return AsignacionesOrdenadoresRepository::miniCrear($value);
     }
 
     /**

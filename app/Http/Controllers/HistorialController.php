@@ -70,7 +70,10 @@
          */
         public function historico(CreateHistoricoRequest $request){
             $data = $request->validated();
-            $this -> historialService ->historico($data);
-            return redirect()->back()->with('success', 'Historial enviado correctamente.');
+            if($this -> historialService ->historico($data)){       
+                return redirect()->back()->with('success', 'Historial enviado correctamente.');
+            }else {
+                return redirect()->back()->with('error', "No hay historial que cargar");
+            }
         }
     }

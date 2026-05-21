@@ -70,8 +70,11 @@ class AsignacionesOrdenadorController extends Controller
      */
     public function miniBorrar(MiniDeleteRequest $request){
         $data = $request->validated();
-        $this->asignacionesService->miniBorrarAsignacionOrdenador($data['asignacion_id']);
-        return redirect()->back();
+        if($this->asignacionesService->miniBorrarAsignacionOrdenador($data['asignacion_id'])){
+            return redirect()->back()->with('success', 'Asignación borrada correctamente.');
+        } else {
+            return redirect()->back()->with('error', 'No se ha podido borrar la asignación.');
+        }
     }
 
     /**
@@ -82,7 +85,10 @@ class AsignacionesOrdenadorController extends Controller
      */
     public function miniCrear(MiniCrearRequest $request){
         $data = $request->validated();
-        $this->asignacionesService->miniCrearAsignacionOrdenador($data);
-        return redirect()->back();
+        if($this->asignacionesService->miniCrearAsignacionOrdenador($data)){
+            return redirect()->back()->with('success', 'Asignación realizada correctamente.');
+        } else{
+            return redirect()->back()->with('error', 'No se ha podido realizar la asignación.');
+        }
     }
 }

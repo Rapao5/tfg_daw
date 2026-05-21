@@ -14,16 +14,21 @@ class HistoricoRepository
      * Crea múltiples entradas en el histórico a partir de una lista de asignaciones.
      *
      * @param array $value Lista de arrays, donde cada uno contiene 'asignacion_id'.
-     * @return void
+     * @return bool
      */
     public static function createHistorico($value){
         $asignaciones = repoAsignaciones::getAsignaciones($value['curso_id'], $value['aula_id']);
+
+        if(empty($asignaciones)){
+            return false;
+        }
 
         foreach($asignaciones as $valor){
             $historico = new Historico();
             $historico->asignacion_id = $valor['asignacion_id'];
             $historico->save();
         }
+        return true;
     }
 
     /**

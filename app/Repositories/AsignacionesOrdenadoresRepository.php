@@ -49,13 +49,16 @@ class AsignacionesOrdenadoresRepository
      * Deshabilita una asignación específica (borrado lógico).
      *
      * @param int|string $id ID de la asignación a deshabilitar.
-     * @return void
+     * @return bool
      */
     public static function miniBorrar($id){
         $asignacion = AsignacionesOrdenadoresModel::find($id);
         if ($asignacion) {
             $asignacion->is_enabled = false;
             $asignacion->save();
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -63,7 +66,7 @@ class AsignacionesOrdenadoresRepository
      * Crea una nueva asignación o habilita una existente para un alumno y ordenador.
      *
      * @param array $value Array asociativo que contiene 'alumno_id' y 'ordenador_id'.
-     * @return void
+     * @return bool
      */
     public static function miniCrear($value){
         $asignacion = AsignacionesOrdenadoresModel::where('alumno_id', $value['alumno_id'])
@@ -73,14 +76,17 @@ class AsignacionesOrdenadoresRepository
         if ($asignacion) {
             $asignacion->is_enabled = true;
             $asignacion->save();
-            return;
+            return true;
         }
 
         $asignacion = new AsignacionesOrdenadoresModel();
         $asignacion->alumno_id = $value['alumno_id'];
         $asignacion->ordenador_id = $value['ordenador_id'];
         $asignacion->is_enabled = true;
-        $asignacion->save();
+        if($asignacion->save()){
+            return true;
+        }
+        return false;
     }
 
     /**

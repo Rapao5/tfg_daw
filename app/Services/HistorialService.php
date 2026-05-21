@@ -37,10 +37,10 @@ class HistorialService
      * Crea registros en el historial de asignaciones.
      *
      * @param array $value Lista de datos de asignación para persistir.
-     * @return void
+     * @return bool
      */
     public function historico($value){
-        repoHistorial::createHistorico($value);
+        return repoHistorial::createHistorico($value);
     }
 
 }
