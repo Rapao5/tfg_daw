@@ -71,6 +71,6 @@
         public function historico(CreateHistoricoRequest $request){
             $data = $request->validated();
             $this -> historialService ->historico($data);
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Historial enviado correctamente.');
         }
     }
