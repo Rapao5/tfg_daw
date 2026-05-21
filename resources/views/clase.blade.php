@@ -14,13 +14,15 @@
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('asignaciones.vista') }}">Panel de Control</a>
-            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosHeader" aria-controls="filtrosHeader" aria-expanded="false" aria-label="Navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
             <div class="collapse navbar-collapse" id="filtrosHeader">
-                <form action="{{ route('asignaciones.filtrar') }}" method="GET" class="d-flex ms-auto gap-3 align-items-center">
-                    <div class="d-flex align-items-center gap-2">
-                        <label class="text-white mb-0" style="font-weight: 500;">Curso:</label>
-                        <div style="min-width: 150px;">
+                <form action="{{ route('asignaciones.filtrar') }}" method="GET" class="d-flex flex-column flex-lg-row ms-auto gap-3 align-items-stretch align-items-lg-center mt-3 mt-lg-0">
+                    <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 w-100">
+                        <label class="text-white mb-0" style="font-weight: 500; min-width: 55px;">Curso:</label>
+                        <div class="w-100" style="min-width: 150px;">
                             <select name="curso_id" class="form-select form-select-sm searchable-select" required>
                                 <option value="">Seleccionar...</option>
                                 @foreach($cursos as $curso)
@@ -32,9 +34,9 @@
                         </div>
                     </div>
 
-                    <div class="d-flex align-items-center gap-2">
-                        <label class="text-white mb-0" style="font-weight: 500;">Aula:</label>
-                        <div style="min-width: 150px;">
+                    <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 w-100">
+                        <label class="text-white mb-0" style="font-weight: 500; min-width: 55px;">Aula:</label>
+                        <div class="w-100" style="min-width: 150px;">
                             <select name="aula_id" class="form-select form-select-sm searchable-select" required>
                                 <option value="">Seleccionar...</option>
                                 @foreach($aulas as $aula)
@@ -46,7 +48,7 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-light btn-sm" type="submit">Filtrar</button>
+                    <button class="btn btn-light btn-sm mt-2 mt-lg-0" type="submit">Filtrar</button>
                 </form>
             </div>
         </div>
