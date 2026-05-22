@@ -13,24 +13,7 @@ class HistorialService
      * @return array
      */
     public function getHistorico($data){
-        $datos = repoHistorial::getHistorico($data);
-        $tabla = [];
-
-        foreach($datos as $dato){
-            $tabla[]=[
-                'id' => $dato['id'],
-                'valores' =>[
-                    $dato['ordenador_nombre'],
-                    $dato['alumno_nombre'],
-                    $dato['alumno_apellidos'],
-                    $dato['curso_nivel'],
-                    $dato['curso_letra'],
-                    $dato['aula_nombre'],
-                    $dato['fecha']
-                ]
-            ]; 
-        }
-        return $tabla;
+        return repoHistorial::getHistorico($data);
     }
 
     /**

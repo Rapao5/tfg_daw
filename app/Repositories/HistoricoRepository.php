@@ -35,7 +35,7 @@ class HistoricoRepository
      * Devuelve una lista de historial formateada para meterlo en una tabla
      * 
      * @param array $data Valores enviados por el filtro
-     * @return array 
+     * @return object 
      */
     public static function getHistorico($data)
     {
@@ -81,6 +81,6 @@ class HistoricoRepository
             $query->where('o.id', $data['ordenador_id']);
         }
 
-        return $query->get()->toArray();
+        return $query->paginate(15);
     }
 }
