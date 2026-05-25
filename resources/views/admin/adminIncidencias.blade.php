@@ -81,39 +81,43 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="ps-4">PC</th>
-                                <th>Título</th>
-                                <th>Descripción</th>
-                                <th>Fecha y hora</th>
-                                <th>Estado</th>
-                                <th class="text-end pe-4">Acciones</th>
+                                <th class="ps-4 py-3 text-nowrap">PC</th>
+                                <th class="py-3 text-nowrap">Profesor</th>
+                                <th class="py-3" style="min-width: 180px;">Título</th>
+                                <th class="py-3" style="min-width: 250px;">Descripción</th>
+                                <th class="py-3 text-nowrap">Fecha y hora</th>
+                                <th class="py-3 text-nowrap">Estado</th>
+                                <th class="text-end pe-4 py-3 text-nowrap">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                                 @foreach ($incidencias as $incidencia)
                                     <tr class="table-danger">
-                                        <td class="ps-4">
-                                            <strong>Nº {{ $incidencia->ordenador_nombre ?? 'Desconocido' }}</strong>
+                                        <td class="ps-4 py-3">
+                                            <strong>{{ $incidencia->ordenador_nombre ?? 'Desconocido' }}</strong>
                                         </td>
-                                        <td>
+                                        <td class="py-3 text-nowrap">
+                                            {{ $incidencia->profesor ?? 'Sin profesor' }}
+                                        </td>
+                                        <td class="py-3">
                                             <strong>{{ $incidencia->titulo ?? 'Sin título' }}</strong>
                                         </td>
-                                        <td>
+                                        <td class="py-3">
                                             <div class="small text-muted">
                                                 {{ $incidencia->descripcion ?? 'Sin descripción' }}
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="py-3 text-nowrap">
                                             <div class="small text-muted">
                                                 {{ $incidencia->fecha ?? 'Sin fecha' }}
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="py-3 text-nowrap">
                                             <div class="small fw-bold text-secondary">
                                                 {{ $incidencia->status->value ?? $incidencia->status->name ?? $incidencia->status ?? 'Desconocido' }}
                                             </div>
                                         </td>
-                                        <td class="text-end pe-4">
+                                        <td class="text-end pe-4 py-3 text-nowrap">
                                             @php
                                                 $statusName = strtolower($incidencia->status->name ?? $incidencia->status ?? '');
                                             @endphp

@@ -8,6 +8,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
+    <style>
+        .pagination nav .d-sm-flex > div:first-child {
+            display: none !important;
+        }
+        .pagination nav .d-sm-flex {
+            justify-content: center !important;
+        }
+    </style>
 </head>
 <body class="bg-light">
 <header>
@@ -28,18 +36,18 @@
             <form action="{{ route('admin.historial') }}" method="GET" class="row g-3 align-items-end">
                 <div class="col-md-3">
                     <label for="fecha_inicio" class="form-label text-secondary small fw-bold">Desde Fecha</label>
-                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" value="{{ $data['fecha_inicio'] ?? '' }}">
+                    <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" value="{{ data_get($data, 'fecha_inicio') }}">
                 </div>
                 <div class="col-md-3">
                     <label for="fecha_fin" class="form-label text-secondary small fw-bold">Hasta Fecha</label>
-                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" value="{{ $data['fecha_fin'] ?? '' }}">
+                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" value="{{ data_get($data, 'fecha_fin') }}">
                 </div>
                 <div class="col-md-3">
                     <label for="ordenador_id" class="form-label text-secondary small fw-bold">Ordenador</label>
                     <select name="ordenador_id" id="ordenador_id" class="form-select">
                         <option value="">Cualquier ordenador</option>
                         @foreach($ordenadores ?? [] as $ordenador)
-                            <option value="{{ $ordenador['id'] }}" {{ (isset($data['ordenador_id']) && $data['ordenador_id'] == $ordenador['id']) ? 'selected' : '' }}>Nº {{ $ordenador['nombre'] }}</option>
+                            <option value="{{ $ordenador['id'] }}" {{ data_get($data, 'ordenador_id') == $ordenador['id'] ? 'selected' : '' }}>Nº {{ $ordenador['nombre'] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -48,7 +56,7 @@
                     <select name="alumno_id" id="alumno_id" class="form-select">
                         <option value="">Cualquier alumno</option>
                         @foreach($alumnos ?? [] as $alumno)
-                            <option value="{{ $alumno['id'] }}" {{ (isset($data['alumno_id']) && $data['alumno_id'] == $alumno['id']) ? 'selected' : '' }}>{{ $alumno['apellidos'] }}, {{ $alumno['nombre'] }}</option>
+                            <option value="{{ $alumno['id'] }}" {{ data_get($data, 'alumno_id') == $alumno['id'] ? 'selected' : '' }}>{{ $alumno['apellidos'] }}, {{ $alumno['nombre'] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -57,7 +65,7 @@
                     <select name="aula_id" id="aula_id" class="form-select">
                         <option value="">Cualquier aula</option>
                         @foreach($aulas ?? [] as $aula)
-                            <option value="{{ $aula['id'] }}" {{ (isset($data['aula_id']) && $data['aula_id'] == $aula['id']) ? 'selected' : '' }}>{{ $aula['nombre'] }}</option>
+                            <option value="{{ $aula['id'] }}" {{ data_get($data, 'aula_id') == $aula['id'] ? 'selected' : '' }}>{{ $aula['nombre'] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -66,7 +74,7 @@
                     <select name="cursos_id" id="cursos_id" class="form-select">
                         <option value="">Cualquier curso</option>
                          @foreach($cursos ?? [] as $curso)
-                            <option value="{{ $curso['id'] }}" {{ (isset($data['cursos_id']) && $data['cursos_id'] == $curso['id']) ? 'selected' : '' }}>{{ $curso['nivel'] }} {{ $curso['letra'] }}</option>
+                            <option value="{{ $curso['id'] }}" {{ data_get($data, 'cursos_id') == $curso['id'] ? 'selected' : '' }}>{{ $curso['nivel'] }} {{ $curso['letra'] }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -89,22 +97,31 @@
                                 <th>Alumno</th>
                                 <th>Curso</th>
                                 <th>Aula</th>
+                                <th>Profesor</th>
                                 <th>Fecha y Hora</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($historial as $registro)
                                 <tr>
-                                    <td class="ps-4"><strong>Nº {{ $registro['valores'][0] ?? 'Desconocido' }}</strong></td>
-                                    <td>{{ $registro['valores'][1] ?? '' }} {{ $registro['valores'][2] ?? '' }}</td>
-                                    <td>{{ $registro['valores'][3] ?? '' }} {{ $registro['valores'][4] ?? '' }}</td>
-                                    <td>{{ $registro['valores'][5] ?? 'Desconocido' }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($registro['valores'][6])->format('d/m/Y H:i') }}</td>
+                                    <td class="ps-4"><strong>Nº {{ data_get($registro, 'ordenador.nombre') ?? data_get($registro, 'ordenador_nombre') ?? 'Desconocido' }}</strong></td>
+                                    <td>{{ data_get($registro, 'alumno.apellidos') ?? data_get($registro, 'alumno.apellido') ?? data_get($registro, 'alumno_apellido') ?? data_get($registro, 'alumno_apellidos') ?? '' }} {{ data_get($registro, 'alumno.nombre') ?? data_get($registro, 'alumno_nombre') ?? '' }}</td>
+                                    <td>{{ data_get($registro, 'curso.nivel') ?? data_get($registro, 'curso_nivel') ?? '' }} {{ data_get($registro, 'curso.letra') ?? data_get($registro, 'curso_letra') ?? '' }}</td>
+                                    <td>{{ data_get($registro, 'aula.nombre') ?? data_get($registro, 'aula_nombre') ?? 'Desconocido' }}</td>
+                                    <td>{{ data_get($registro, 'profesor') ?? 'Sin profesor' }}</td>
+                                    <td>
+                                        @if($date = data_get($registro, 'created_at') ?? data_get($registro, 'fecha'))
+                                            {{ \Carbon\Carbon::parse($date)->format('d/m/Y H:i') }}
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+                 <div class="d-flex justify-content-center pt-4 pb-2 border-top pagination">
+                        {{ $historial->withQueryString()->links('pagination::bootstrap-5') }}
+                    </div>
             @else
                 <div class="p-5 text-center text-muted">
                     <i class="bi bi-search text-secondary mb-3" style="font-size: 4rem;"></i>
@@ -116,6 +133,7 @@
         </div>
     </div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
