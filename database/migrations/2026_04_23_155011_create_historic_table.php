@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('historico', function (Blueprint $table) {
             $table->id();
             $table->foreignId('asignacion_id')->constrained('asignaciones_ordenadores');
+            $table->string('profesor');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class HistoricoModel extends Model
 {
     protected $table = "historico";
 
-    protected $fillable = ['asignacion_id'];
+    protected $fillable = ['asignacion_id', 'profesor'];
 
     protected $hidden = ["update_at"];
 

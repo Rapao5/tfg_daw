@@ -39,12 +39,14 @@ class IncidenciasRepository
         $incidencia->fecha = Carbon::createFromFormat('Y-m-d H:i:s',$fecha.' '.$hora);
         $incidencia->status = $status;
         $incidencia->resuelto = false;
+        $incidencia->profesor = "Profe de prueba";
         return $incidencia->save();
     }
 
     public static function getIncidencias($value){
         $query = IncidenciasModel::select(
             "incidencias.id as id",
+            "incidencias.profesor as profesor",
             "o.nombre as ordenador_nombre",
             "incidencias.titulo as titulo",
             "incidencias.descripcion as descripcion",

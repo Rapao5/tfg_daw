@@ -33,7 +33,7 @@ class IncidenciasModel extends Model
      * 
      * @var list<string>
      */
-    protected $fillable = ["fecha", "ordenador_id", "descripcion", "titulo", "resuelto"];
+    protected $fillable = ["fecha", "ordenador_id", "descripcion", "titulo", "resuelto", 'profesor'];
 
     /**
      * Los atributos que deben ocultarse para la serialización.

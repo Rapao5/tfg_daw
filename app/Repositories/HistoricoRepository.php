@@ -26,6 +26,7 @@ class HistoricoRepository
         foreach($asignaciones as $valor){
             $historico = new Historico();
             $historico->asignacion_id = $valor['asignacion_id'];
+            $historico->profesor = "Profe de prueba";
             $historico->save();
         }
         return true;
@@ -41,6 +42,7 @@ class HistoricoRepository
     {
         $query = Historico::select(
             "historico.id as id",
+            "historico.profesor as profesor",
             "o.nombre as ordenador_nombre",
             "a.nombre as alumno_nombre",
             "a.apellidos as alumno_apellidos",

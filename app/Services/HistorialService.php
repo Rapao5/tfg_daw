@@ -10,7 +10,7 @@ class HistorialService
      * Devuelve un un array formateado para meterlo en una tabla
      * 
      * @param array $data Datos del filtro 
-     * @return array
+     * @return Object
      */
     public function getHistorico($data){
         return repoHistorial::getHistorico($data);
