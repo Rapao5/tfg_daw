@@ -12,7 +12,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('incidencias.home') }}">Panel de Control</a>
+            <a class="navbar-brand" href="{{ route('incidencias.home') }}">Gestor de ordenadores</a>
               <span class="navbar-text text-white-50 ms-auto"><i class="bi bi-tools me-2"></i>Registro de Incidencia</span>
         </div>
     </nav>

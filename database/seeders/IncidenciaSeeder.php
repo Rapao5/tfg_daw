@@ -20,6 +20,7 @@ class IncidenciaSeeder extends Seeder
             'fecha' => '2024-05-01',
             'ordenador_id' => 1,
             'status' => IncidenciaStatus::PENDIENTE,
+            'profesor' => 'Profesor de prueba 1',
         ]);
 
         IncidenciasModel::create([
@@ -28,6 +29,7 @@ class IncidenciaSeeder extends Seeder
             'fecha' => '2024-05-02',
             'ordenador_id' => 2,
             'status' => IncidenciaStatus::RESUELTO,
+            'profesor' => 'Profesor de prueba 2',
         ]);
 
         IncidenciasModel::create([
@@ -36,6 +38,7 @@ class IncidenciaSeeder extends Seeder
             'fecha' => '2024-05-03',
             'ordenador_id' => 3,
             'status' => IncidenciaStatus::MANTENIMIENTO,
+            'profesor' => 'Profesor de prueba 3',
         ]);
     }
 }

@@ -13,11 +13,10 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('asignaciones.vista') }}">Panel de Control</a>
+            <a class="navbar-brand" href="{{ route('asignaciones.vista') }}">Gestor de ordenadores</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosHeader" aria-controls="filtrosHeader" aria-expanded="false" aria-label="Navegación">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="filtrosHeader">
                 <form action="{{ route('asignaciones.filtrar') }}" method="GET" class="d-flex flex-column flex-lg-row ms-auto gap-3 align-items-stretch align-items-lg-center mt-3 mt-lg-0">
                     <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 w-100">
@@ -55,6 +54,7 @@
     </nav>
 </header>
 <main class="container mt-4">
+    <p class="text-center">¡IMPORTANTE! Guardar siempre que se hayan asignado los alumnos.</p>
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
@@ -68,7 +68,7 @@
             <input type="hidden" name="curso_id" value="{{ $value['curso_id'] }}">
             <input type="hidden" name="aula_id" value="{{ $value['aula_id'] }}">
             <button type="submit" class="btn btn-info btn-lg mb-3 p-3">
-                <i class="bi bi-clock-history"></i> Historial
+                <i class="bi bi-clock-history"></i> Guardar
             </button>
         </form>
     </div>
