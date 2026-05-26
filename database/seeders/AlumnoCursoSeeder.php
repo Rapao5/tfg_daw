@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\CursosAlumnosModel;
+use App\Models\CursosModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\AlumnosModel;
 
 class AlumnoCursoSeeder extends Seeder
 {
@@ -13,31 +15,30 @@ class AlumnoCursoSeeder extends Seeder
      */
     public function run(): void
     {
-        CursosAlumnosModel::create([
-            'alumno_id' => 1,
-            'curso_id' => 1,
-        ]);
+        // 1. Obtenemos todos los cursos y alumnos que ya existen en la BD
+        $cursos = CursosModel::all();
+        $alumnos = AlumnosModel::all();
 
-        CursosAlumnosModel::create([
-            'alumno_id' => 2,
-            'curso_id' => 1,
-        ]);
+        // 2. Llevamos un índice para saber qué alumno toca asignar
+        $indiceAlumno = 0;
 
-        CursosAlumnosModel::create([
-            'alumno_id' => 3,
-            'curso_id' => 2,
-        ]);
-        CursosAlumnosModel::create([
-            'alumno_id' => 4,
-            'curso_id' => 2,
-        ]);
-        CursosAlumnosModel::create([
-            'alumno_id' => 5,
-            'curso_id' => 3,
-        ]);
-        CursosAlumnosModel::create([
-            'alumno_id' => 6,
-            'curso_id' => 3,
-        ]);
+        // 3. Recorremos cada curso
+        foreach ($cursos as $curso) {
+            
+            // 4. Por cada curso, hacemos un bucle de 20 para asignar alumnos
+            for ($i = 0; $i < 20; $i++) {
+                
+                // Comprobamos que aún queden alumnos en la colección para evitar errores
+                if (isset($alumnos[$indiceAlumno])) {
+                    CursosAlumnosModel::create([
+                        'curso_id'  => $curso->id,
+                        'alumno_id' => $alumnos[$indiceAlumno]->id,
+                    ]);
+                    
+                    // Pasamos al siguiente alumno
+                    $indiceAlumno++;
+                }
+            }
+        }
     }
 }
