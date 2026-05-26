@@ -112,7 +112,7 @@
                             @foreach ($historial as $registro)
                                 <tr>
                                     <td class="ps-4"><strong>Nº {{ $registro->ordenador?->nombre ?? $registro->ordenador_nombre ?? 'Desconocido' }}</strong></td>
-                                    <td>{{ $registro->alumno?->apellidos ?? $registro->alumno?->apellido ?? $registro->alumno_apellidos ?? $registro->alumno_apellido ?? '' }} {{ $registro->alumno?->nombre ?? $registro->alumno_nombre ?? '' }}</td>
+                                    <td>{{ $registro->alumno?->apellidos ?? $registro->alumno?->apellido ?? $registro->alumno_apellidos ?? $registro->alumno_apellido ?? '' }}, {{ $registro->alumno?->nombre ?? $registro->alumno_nombre ?? '' }}</td>
                                     <td>{{ $registro->curso?->nivel ?? $registro->curso_nivel ?? '' }} {{ $registro->curso?->letra ?? $registro->curso_letra ?? '' }}</td>
                                     <td>{{ $registro->aula?->nombre ?? $registro->aula_nombre ?? 'Desconocido' }}</td>
                                     <td>{{ $registro->profesor ?? 'Sin profesor' }}</td>
