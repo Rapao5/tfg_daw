@@ -14,15 +14,31 @@ class ClaseSeeder extends Seeder
     public function run(): void
     {
         AulasModel::create([
-            'nombre' => 'Aula 22',
+            'nombre' => 'A0.1',
         ]);
 
         AulasModel::create([
-            'nombre' => 'Aula 23',
+            'nombre' => 'A0.11',
         ]);
 
         AulasModel::create([
-            'nombre' => 'Aula 24',
+            'nombre' => 'A0.15',
+        ]);
+
+        AulasModel::create([
+            'nombre' => 'CHR0.1',
+        ]);
+
+        AulasModel::create([
+            'nombre' => 'CHR0.2',
+        ]);
+
+        AulasModel::create([
+            'nombre' => 'CHR1.1',
+        ]);
+
+        AulasModel::create([
+            'nombre' => 'CHR1.2',
         ]);
     }
 }
