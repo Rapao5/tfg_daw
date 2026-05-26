@@ -86,7 +86,8 @@
                 <div class="col-md-6 d-flex gap-2">
                     <button type="submit" class="btn btn-primary w-100"><i class="bi bi-filter"></i> Filtrar</button>
                     <a href="{{ route('admin.historial') }}" class="btn btn-outline-secondary w-100"><i class="bi bi-eraser"></i> Limpiar</a>
-                    <button type="button" id="exportar-excel" class="btn btn-outline-success w-100"><i class="bi bi-file-earmark-excel"></i> Exportar a Excel</button>
+                    <button type="button" id="exportar-excel" class="btn btn-outline-success w-100"><i class="bi bi-file-earmark-excel"></i> Excel</button>
+                    <button type="button" id="exportar-pdf" class="btn btn-outline-danger w-100"><i class="bi bi-file-earmark-pdf"></i> PDF</button>
                 </div>
             </form>
         </div>
@@ -140,8 +141,7 @@
     </div>
 </main>
 
-<button id="exportar-excel" class="btn btn-outline-primary">Exportar a excel</button>
-<button id="exportar-pdf" class="btn btn-outline-primary">Exportar a pdf</button>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
