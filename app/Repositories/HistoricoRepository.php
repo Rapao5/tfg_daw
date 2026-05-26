@@ -60,9 +60,7 @@ class HistoricoRepository
         ->join('aulas_ordenadores as auo', 'ao.ordenador_id', '=', 'auo.ordenador_id')
         ->join('aulas as au', 'auo.aula_id', '=', 'au.id')
         ->whereDate('historico.created_at', ">=", $data['fecha_inicio'])
-        ->whereDate('historico.created_at', "<=", $data['fecha_fin'])
-        ->whereTime('historico.created_at', ">=", $data['hora_inicio'])
-        ->whereTime('historico.created_at', "<=", $data['hora_fin']);
+        ->whereDate('historico.created_at', "<=", $data['fecha_fin']);
         
         if(isset($data['cursos_id']) && $data['cursos_id']){
             $query->where('ca.curso_id', $data['cursos_id']);
