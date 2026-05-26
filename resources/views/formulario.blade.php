@@ -12,7 +12,10 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('incidencias.home') }}">Gestor de ordenadores</a>
+            <a class="navbar-brand d-flex align-items-center" href="{{ route('asignaciones.vista') }}">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo" width="110" height="75" class="me-2 rounded">
+                Gestor de ordenadores
+            </a>
               <span class="navbar-text text-white-50 ms-auto"><i class="bi bi-tools me-2"></i>Registro de Incidencia</span>
         </div>
     </nav>

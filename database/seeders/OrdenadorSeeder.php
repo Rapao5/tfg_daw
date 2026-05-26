@@ -13,40 +13,11 @@ class OrdenadorSeeder extends Seeder
      */
     public function run(): void
     {
-        OrdenadoresModel::create([
-            'nombre' => '1',
-            'disponible' => false,
-        ]);
-
-        OrdenadoresModel::create([
-            'nombre' => '2',
-            'disponible' => true,
-        ]);
-
-        OrdenadoresModel::create([
-            'nombre' => '3',
-            'disponible' => false,
-        ]);
-
-        OrdenadoresModel::create([
-            'nombre' => '4',
-            'disponible' => true,
-        ]);
-        OrdenadoresModel::create([
-            'nombre' => '5',
-            'disponible' => true,
-        ]);
-        OrdenadoresModel::create([
-            'nombre' => '6',
-            'disponible' => true,
-        ]);
-        OrdenadoresModel::create([
-            'nombre' => '7',
-            'disponible' => true,
-        ]);
-        OrdenadoresModel::create([
-            'nombre' => '8',
-            'disponible' => true,
-        ]);
+        for ($i = 1; $i <= 164; $i++) {
+            OrdenadoresModel::create([
+                'nombre' => (string) $i,
+                'disponible' => true,
+            ]);
+        }
     }
 }

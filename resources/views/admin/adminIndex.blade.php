@@ -12,7 +12,9 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('asignaciones.vista') }}">Panel de Control</a>
+            <a class="navbar-brand" href="{{ route('asignaciones.vista') }}">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo" width="110" height="75" class="me-2 rounded">
+                Panel de Control</a>
             
 
             <div class="collapse navbar-collapse" id="filtrosHeader">
