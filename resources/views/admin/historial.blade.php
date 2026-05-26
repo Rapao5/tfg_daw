@@ -23,7 +23,8 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('admin.historial') }}">
                 <img src="{{ asset('img/logo.png') }}" alt="Logo" width="110" height="75" class="me-2 rounded">
-                Panel de Control</a>
+                Panel de Control
+            </a>
             <a href="{{ route('asignaciones.vista') }}" class="btn btn-outline-light">
                 <i class="bi bi-arrow-left"></i> Volver al Panel
             </a>
