@@ -16,6 +16,7 @@
             justify-content: center !important;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body class="bg-light">
 <header>
@@ -90,7 +91,7 @@
         <div class="card-body p-0">
             @if(isset($historial) && count($historial) > 0)
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
+                    <table class="table table-hover align-middle mb-0" id="tabla_historial">
                         <thead class="table-light">
                             <tr>
                                 <th class="ps-4">Ordenador</th>
@@ -133,6 +134,10 @@
         </div>
     </div>
 </main>
+
+<button id="exportar-excel" class="btn btn-outline-primary">Exportar a excel</button>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 <script>
@@ -140,6 +145,21 @@
         ['#ordenador_id', '#alumno_id', '#aula_id', '#cursos_id'].forEach(id => {
             new TomSelect(id, { create: false, placeholder: "Buscar..." });
         });
+    });
+
+    
+    document.getElementById("exportar-excel").addEventListener("click", function(){
+        console.log("Exportando a Excel...");
+        
+        var tabla = document.getElementById("tabla_historial");
+        if (!tabla) {
+            console.error("Error: No se encontró ningún elemento con el ID 'tabla_historial'.");
+            alert("No hay datos disponibles para exportar.");
+            return;
+        }
+        var wb = XLSX.utils.table_to_book(tabla, { sheet: "Hoja1", raw: false });
+
+        XLSX.writeFile(wb, "historial_exportado.xlsx");
     });
 </script>
 </body>
