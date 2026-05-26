@@ -82,9 +82,10 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-3 d-flex gap-2">
+                <div class="col-md-6 d-flex gap-2">
                     <button type="submit" class="btn btn-primary w-100"><i class="bi bi-filter"></i> Filtrar</button>
                     <a href="{{ route('admin.historial') }}" class="btn btn-outline-secondary w-100"><i class="bi bi-eraser"></i> Limpiar</a>
+                    <button type="button" id="exportar-excel" class="btn btn-outline-success w-100"><i class="bi bi-file-earmark-excel"></i> Exportar a Excel</button>
                 </div>
             </form>
         </div>
@@ -137,10 +138,6 @@
         </div>
     </div>
 </main>
-
-<button id="exportar-excel" class="btn btn-outline-primary">Exportar a excel</button>
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 <script>
