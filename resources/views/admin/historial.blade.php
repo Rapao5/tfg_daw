@@ -17,6 +17,7 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body class="bg-light">
 <header>
@@ -138,6 +139,11 @@
         </div>
     </div>
 </main>
+
+<button id="exportar-excel" class="btn btn-outline-primary">Exportar a excel</button>
+<button id="exportar-pdf" class="btn btn-outline-primary">Exportar a pdf</button>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 <script>
@@ -148,9 +154,7 @@
     });
 
     
-    document.getElementById("exportar-excel").addEventListener("click", function(){
-        console.log("Exportando a Excel...");
-        
+    document.getElementById("exportar-excel").addEventListener("click", function(){        
         var tabla = document.getElementById("tabla_historial");
         if (!tabla) {
             console.error("Error: No se encontró ningún elemento con el ID 'tabla_historial'.");
@@ -160,6 +164,36 @@
         var wb = XLSX.utils.table_to_book(tabla, { sheet: "Hoja1", raw: false });
 
         XLSX.writeFile(wb, "historial_exportado.xlsx");
+    });
+
+    document.getElementById("exportar-pdf").addEventListener("click", function() {
+        var elemento = document.getElementById("tabla_historial");
+
+        // Control de seguridad: Verificar que la tabla exista
+        if (!elemento) {
+            console.error("Error: No se encontró la tabla 'tabla_historial'.");
+            alert("No hay datos disponibles para exportar a PDF.");
+            return;
+        }
+
+        // Configuración personalizada del PDF
+        var opciones = {
+            margin:       10,                   // Margen en milímetros (superior, inferior, izquierdo, derecho)
+            filename:     'historial_reporte.pdf',
+            image:        { type: 'jpeg', quality: 0.98 }, // Calidad de captura de la tabla
+            html2canvas:  { 
+                scale: 2,                       // Mayor escala = mejor resolución de texto (evita que se vea borroso)
+                useCORS: true                   // Permite cargar imágenes externas si tu tabla tiene logos
+            },
+            jsPDF:        { 
+                unit: 'mm', 
+                format: 'a4',                   // Formato de hoja estándar
+                orientation: 'portrait'         // 'portrait' (vertical) o 'landscape' (horizontal)
+            }
+        };
+
+        // Ejecutar la conversión y descargar el archivo
+        html2pdf().set(opciones).from(elemento).save();
     });
 </script>
 </body>
