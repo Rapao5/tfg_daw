@@ -24,12 +24,12 @@
                 <form action="{{ route('asignaciones.filtrar') }}" method="GET" class="d-flex flex-column flex-lg-row ms-auto gap-3 align-items-stretch align-items-lg-center mt-3 mt-lg-0">
                     <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 w-100">
                         <label class="text-white mb-0" style="font-weight: 500; min-width: 55px;">Curso:</label>
-                        <div class="w-100" style="min-width: 150px;">
-                            <select name="curso_id" class="form-select form-select-sm searchable-select" required>
+                        <div class="w-100" style="min-width: 250px;">
+                            <select name="curso_id" class="form-select searchable-select" required>
                                 <option value="">Seleccionar...</option>
                                 @foreach($cursos as $curso)
                                     <option value="{{ $curso['id'] }}" {{ (isset($value) && $value['curso_id'] == $curso['id']) ? 'selected' : '' }}>
-                                       {{ $curso['nivel'] }}º {{ $curso['letra'] }}
+                                       {{ $curso['nivel'] }} {{ $curso['etapas'] }} {{ $curso['letra'] }}  
                                     </option>
                                 @endforeach
                             </select>
@@ -38,8 +38,8 @@
 
                     <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 w-100">
                         <label class="text-white mb-0" style="font-weight: 500; min-width: 55px;">Aula:</label>
-                        <div class="w-100" style="min-width: 150px;">
-                            <select name="aula_id" class="form-select form-select-sm searchable-select" required>
+                        <div class="w-100" style="min-width: 250px;">
+                            <select name="aula_id" class="form-select searchable-select" required>
                                 <option value="">Seleccionar...</option>
                                 @foreach($aulas as $aula)
                                     <option value="{{ $aula['id'] }}" {{ (isset($value) && $value['aula_id'] == $aula['id']) ? 'selected' : '' }}>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-light btn-sm mt-2 mt-lg-0" type="submit">Filtrar</button>
+                    <button class="btn btn-light mt-2 mt-lg-0" type="submit">Filtrar</button>
                 </form>
             </div>
         </div>
