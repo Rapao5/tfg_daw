@@ -21,7 +21,9 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('admin.incidencias') }}">Panel de Control</a>
+            <a class="navbar-brand" href="{{ route('admin.incidencias') }}">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo" width="110" height="75" class="me-2 rounded">
+                Panel de Control</a>
         </div>
     </nav>
 </header>

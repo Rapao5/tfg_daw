@@ -13,7 +13,10 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm py-4" style="background-color: #0b63a9;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('asignaciones.vista') }}">Gestor de ordenadores</a>
+            <a class="navbar-brand d-flex align-items-center" href="{{ route('asignaciones.vista') }}">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo" width="110" height="75" class="me-2 rounded">
+                Gestor de ordenadores
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosHeader" aria-controls="filtrosHeader" aria-expanded="false" aria-label="Navegación">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -60,6 +63,11 @@
             <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+    @elseif(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-x-circle me-2"></i>{{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     @endif
     @if(isset($ordenadores))
     <div class="d-flex justify-content-center p-2">
@@ -73,7 +81,7 @@
         </form>
     </div>
         <div class="row">
-            @foreach ($ordenadores as $item)
+            @foreach (collect($ordenadores)->sortBy('nombre', SORT_NATURAL) as $item)
                 <div class="col-md-3 mb-4">
                     <div class="card text-center border-dark h-100 shadow-sm">
                         <div class="card-header text-white" style="background-color: #0b63a9;">
