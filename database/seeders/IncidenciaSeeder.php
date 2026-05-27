@@ -14,31 +14,6 @@ class IncidenciaSeeder extends Seeder
      */
     public function run(): void
     {
-        IncidenciasModel::create([
-            'titulo' => 'Pantalla rota',
-            'descripcion' => 'La pantalla del ordenador no funciona correctamente.',
-            'fecha' => '2024-05-01',
-            'ordenador_id' => 1,
-            'status' => IncidenciaStatus::PENDIENTE,
-            'profesor' => 'Profesor de prueba 1',
-        ]);
-
-        IncidenciasModel::create([
-            'titulo' => 'Teclado no responde',
-            'descripcion' => 'El teclado del ordenador no responde al escribir.',
-            'fecha' => '2024-05-02',
-            'ordenador_id' => 2,
-            'status' => IncidenciaStatus::RESUELTO,
-            'profesor' => 'Profesor de prueba 2',
-        ]);
-
-        IncidenciasModel::create([
-            'titulo' => 'Problema de conexión a internet',
-            'descripcion' => 'El ordenador no se conecta a la red Wi-Fi.',
-            'fecha' => '2024-05-03',
-            'ordenador_id' => 3,
-            'status' => IncidenciaStatus::MANTENIMIENTO,
-            'profesor' => 'Profesor de prueba 3',
-        ]);
+        
     }
 }
